@@ -34,8 +34,8 @@ const IconTag = () => (
   </svg>
 );
 
-// 4. Signal/radar waves — "acesso ao Radar"
-const IconRadar = () => (
+// 4. Signal/radar waves — "acesso à plataforma"
+const IconAccess = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
     <path d="M9 14a5 5 0 0 0 0-10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
     <path d="M9 17a8 8 0 0 0 0-16" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeDasharray="1.5 2"/>
@@ -314,9 +314,9 @@ const FAQ_ITEMS = [
     hint: 'Economia de até 80%',
   },
   {
-    q: 'Tenho acesso ao Radar imediatamente?',
+    q: 'Tenho acesso à plataforma imediatamente?',
     a: 'No segundo após o checkout, o link da plataforma é liberado no seu e-mail. Não há espera — é acesso 24h, sem fila.',
-    Icon: IconRadar,
+    Icon: IconAccess,
     hint: 'Acesso instantâneo',
   },
   {

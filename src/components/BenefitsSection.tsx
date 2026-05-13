@@ -32,7 +32,7 @@ const FEATURES = [
     num: '5',
     icon: Trophy,
     title: 'DESAFIO\n30 DIAS',
-    desc: 'Aplique as técnicas e receba feedback exclusivo da comunidade.',
+    desc: 'Aplique as técnicas e receba feedback exclusivo da equipe.',
   },
 ];
 

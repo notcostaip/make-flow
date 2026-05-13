@@ -110,7 +110,7 @@ function IPhoneScreen() {
       <div className="flex items-center justify-between px-4 py-3 flex-shrink-0">
         <div className="flex items-baseline gap-1.5">
           <span className="font-serif text-white text-[22px] leading-none font-medium">Make</span>
-          <span className="font-serif text-[var(--color-brand)] text-[22px] leading-none italic">Store</span>
+          <span className="font-serif text-[var(--color-brand)] text-[22px] leading-none italic">Flow</span>
         </div>
         <div className="w-9 h-9 rounded-full border border-white/20 bg-white/[0.05] flex items-center justify-center">
           <ShoppingBag className="w-4 h-4 text-white/70" />
@@ -259,7 +259,7 @@ function IPhoneMockup() {
 
 // MacBook Pro with vertical infinite marquee
 function MacBookMockup() {
-  const radarItems = [
+  const priceItems = [
     { brand: 'MAC', product: 'Studio Fix Blur', price: 'R$ 97', original: 'R$ 220', pct: '-56%' },
     { brand: 'O Boticário', product: 'Glossy Shine', price: 'R$ 42', original: 'R$ 89', pct: '-53%' },
     { brand: 'Vult', product: 'Base Líquida', price: 'R$ 19', original: 'R$ 45', pct: '-58%' },
@@ -268,7 +268,7 @@ function MacBookMockup() {
     { brand: 'Natura', product: 'Sérum Pré-Make', price: 'R$ 89', original: 'R$ 149', pct: '-40%' },
     { brand: 'Quem Disse', product: 'Fixador Bruminha', price: 'R$ 34', original: 'R$ 69', pct: '-51%' },
   ];
-  const tripled = [...radarItems, ...radarItems, ...radarItems];
+  const tripled = [...priceItems, ...priceItems, ...priceItems];
 
   return (
     <div className="relative w-full max-w-xl hidden md:block">
@@ -301,7 +301,7 @@ function MacBookMockup() {
             </div>
           </div>
 
-          {/* Vertical scrolling radar feed */}
+          {/* Vertical scrolling price feed */}
           <div className="flex-1 overflow-hidden relative z-10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
             <motion.div
               className="flex flex-col gap-2"

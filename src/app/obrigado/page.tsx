@@ -142,7 +142,7 @@ export default function ObrigadoPage() {
         </motion.div>
 
         {/* ══════════════════════════════════════
-            2. OFERTA PRINCIPAL — CTA imediato
+            2. ACESSO EXCLUSIVO — CTA imediato
         ══════════════════════════════════════ */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
@@ -348,7 +348,7 @@ export default function ObrigadoPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          aria-label="Entrar no Telegram"
+          aria-label="Acessar protocolo"
           className="text-center space-y-5"
         >
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-[1.1]">
