@@ -5,13 +5,13 @@ import Image from 'next/image';
 
 const RESULTS = [
   {
-    image: '/make_flow_transformation_1_1778657485055.png',
+    image: '/transformation-1.png',
     name: 'Amanda, 28',
     text: 'Sempre gastei fortunas em bases que deixavam minha pele pesada. Com o protocolo de Pele Glow, aprendi a técnica certa e hoje minha make dura o dia todo com aspecto natural.',
     tag: 'Foco: Pele Glow'
   },
   {
-    image: '/make_flow_transformation_2_1778657537234.png',
+    image: '/transformation-2.png',
     name: 'Beatriz, 34',
     text: 'Minha maior dificuldade eram as olheiras e o aspecto cansado. O Make Flow me ensinou a neutralizar sem craquelar. É libertador.',
     tag: 'Foco: Olheiras & Contorno'
