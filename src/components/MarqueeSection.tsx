@@ -3,16 +3,16 @@
 import { motion } from 'framer-motion';
 
 const BRANDS = [
-  "O Boticário",
-  "Natura",
-  "Quem Disse Berenice?",
-  "MAC",
-  "Amazon",
-  "Mercado Livre",
-  "Shopee",
-  "NYX Professional",
-  "L'Oréal Paris",
-  "Maybelline",
+  "Base Perfeita",
+  "Contorno Natural",
+  "Olho Esfumado",
+  "Pele Glow",
+  "Boca Perfeita",
+  "Look Completo",
+  "Skincare & Prep",
+  "Cor & Harmonia",
+  "Iluminação Pro",
+  "Make para Fotos",
 ];
 
 export function MarqueeSection() {

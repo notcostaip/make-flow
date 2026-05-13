@@ -2,102 +2,71 @@
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, MouseEvent } from 'react';
-import { ShoppingBag, Search } from 'lucide-react';
+import { BookOpen, Play } from 'lucide-react';
 
-const MAKEUP_PRODUCTS = [
-  { name: 'Sérum Pré-Make Glow', price: 'R$ 89,90', rating: 5.0, discount: '-40%', emoji: '✨' },
-  { name: 'Esponja Beauty Core', price: 'R$ 24,50', rating: 4.7, discount: '-35%', emoji: '💄' },
-  { name: 'Paleta Niina Secrets', price: 'R$ 89,00', rating: 4.8, discount: '-40%', emoji: '🎨' },
-  { name: 'Batom YSL Rouge Pur', price: 'R$ 159', rating: 4.9, discount: '-49%', emoji: '💋' },
-  { name: 'Base Fit Me Maybelline', price: 'R$ 34', rating: 4.6, discount: '-62%', emoji: '🪞' },
-  { name: 'Blur MAC Studio Fix', price: 'R$ 97', rating: 4.8, discount: '-56%', emoji: '🌟' },
+const PROTOCOL_MODULES = [
+  { name: 'Base Sem Máscara', level: 'Módulo 1', status: 'completo', icon: '✅', tag: 'Essencial' },
+  { name: 'Olho Esfumado', level: 'Módulo 2', status: 'completo', icon: '✅', tag: 'Técnica' },
+  { name: 'Contorno Natural', level: 'Módulo 3', status: 'ativo', icon: '▶️', tag: 'Avançado' },
+  { name: 'Pele Glow', level: 'Módulo 4', status: 'bloqueado', icon: '🔒', tag: 'Premium' },
+  { name: 'Boca Perfeita', level: 'Módulo 5', status: 'bloqueado', icon: '🔒', tag: 'Premium' },
+  { name: 'Look Completo', level: 'Módulo 6', status: 'bloqueado', icon: '🔒', tag: 'Avançado' },
 ];
 
-// SVG product illustrations keyed by emoji — themed per product category
-const PRODUCT_ICONS: Record<string, React.ReactNode> = {
-  // Sérum — dropper bottle
-  '✨': (
+// SVG module icons
+const MODULE_ICONS: Record<string, React.ReactNode> = {
+  '✅': (
     <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <rect x="14" y="11" width="10" height="18" rx="3" fill="#cc0000" opacity="0.15" stroke="#cc0000" strokeWidth="1.2"/>
-      <rect x="16.5" y="5" width="5" height="8" rx="1.2" stroke="#cc0000" strokeWidth="1"/>
-      <circle cx="19" cy="31" r="2.2" fill="#cc0000" opacity="0.55"/>
-      <line x1="19" y1="15" x2="19" y2="23" stroke="#cc0000" strokeWidth="1" opacity="0.35"/>
+      <circle cx="19" cy="19" r="13" fill="#cc0000" opacity="0.15" stroke="#cc0000" strokeWidth="1.2"/>
+      <path d="M13 19l4 4 8-8" stroke="#cc0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ),
-  // Esponja — puff with handle
-  '💄': (
+  '▶️': (
     <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <ellipse cx="19" cy="17" rx="11" ry="9" fill="#cc0000" opacity="0.1" stroke="#cc0000" strokeWidth="1.2"/>
-      <ellipse cx="19" cy="17" rx="6" ry="5" fill="#cc0000" opacity="0.18"/>
-      <line x1="19" y1="26" x2="19" y2="33" stroke="#cc0000" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <circle cx="19" cy="19" r="13" fill="#cc0000" opacity="0.15" stroke="#cc0000" strokeWidth="1.2"/>
+      <polygon points="16,13 26,19 16,25" fill="#cc0000" opacity="0.7"/>
     </svg>
   ),
-  // Paleta — grid of color swatches
-  '🎨': (
+  '🔒': (
     <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <rect x="5" y="10" width="28" height="18" rx="3" fill="#cc0000" opacity="0.08" stroke="#cc0000" strokeWidth="1.2"/>
-      <rect x="8" y="13" width="6" height="5" rx="1" fill="#cc0000" opacity="0.55"/>
-      <rect x="16" y="13" width="6" height="5" rx="1" fill="#cc0000" opacity="0.3"/>
-      <rect x="24" y="13" width="6" height="5" rx="1" fill="#cc0000" opacity="0.18"/>
-      <rect x="8" y="20" width="6" height="5" rx="1" fill="#cc0000" opacity="0.18"/>
-      <rect x="16" y="20" width="6" height="5" rx="1" fill="#cc0000" opacity="0.4"/>
-      <rect x="24" y="20" width="6" height="5" rx="1" fill="#cc0000" opacity="0.28"/>
-    </svg>
-  ),
-  // Batom — lipstick tube
-  '💋': (
-    <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <rect x="15" y="18" width="8" height="14" rx="1.5" fill="#cc0000" opacity="0.18" stroke="#cc0000" strokeWidth="1.2"/>
-      <path d="M15 18V11a4 4 0 018 0v7" stroke="#cc0000" strokeWidth="1.2"/>
-      <ellipse cx="19" cy="10" rx="4" ry="2.5" fill="#cc0000" opacity="0.7"/>
-      <line x1="15" y1="18" x2="23" y2="18" stroke="#cc0000" strokeWidth="1" opacity="0.5"/>
-    </svg>
-  ),
-  // Base — pump bottle
-  '🪞': (
-    <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <rect x="11" y="14" width="16" height="18" rx="3" fill="#cc0000" opacity="0.12" stroke="#cc0000" strokeWidth="1.2"/>
-      <rect x="15" y="8" width="8" height="8" rx="2" stroke="#cc0000" strokeWidth="1"/>
-      <line x1="11" y1="21" x2="27" y2="21" stroke="#cc0000" strokeWidth="1" opacity="0.35"/>
-      <rect x="15.5" y="24" width="7" height="3" rx="1" fill="#cc0000" opacity="0.3"/>
-    </svg>
-  ),
-  // Blur / Compact powder
-  '🌟': (
-    <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-      <ellipse cx="19" cy="19" rx="12" ry="9" fill="#cc0000" opacity="0.1" stroke="#cc0000" strokeWidth="1.2"/>
-      <ellipse cx="19" cy="19" rx="7" ry="5" fill="#cc0000" opacity="0.15" stroke="#cc0000" strokeWidth="1"/>
-      <circle cx="19" cy="19" r="2.2" fill="#cc0000" opacity="0.5"/>
+      <circle cx="19" cy="19" r="13" fill="#cc0000" opacity="0.06" stroke="#cc0000" strokeWidth="1" strokeDasharray="3 2"/>
+      <rect x="14" y="18" width="10" height="8" rx="2" stroke="#cc0000" strokeWidth="1" opacity="0.4"/>
+      <path d="M16 18v-3a3 3 0 016 0v3" stroke="#cc0000" strokeWidth="1" opacity="0.4"/>
     </svg>
   ),
 };
 
-// Product card inside the iPhone screen — SVG product thumbnails
-function PhoneProductCard({ product }: { product: typeof MAKEUP_PRODUCTS[0] }) {
+// Module card inside the iPhone screen
+function PhoneModuleCard({ module }: { module: typeof PROTOCOL_MODULES[0] }) {
+  const isLocked = module.status === 'bloqueado';
+  const isActive = module.status === 'ativo';
   return (
-    <div className="relative bg-[#1c0a0a] border border-white/[0.08] rounded-2xl p-3 flex-shrink-0 w-[120px] flex flex-col gap-2">
-      <div className="absolute top-2 left-2 bg-[var(--color-brand)] text-white text-[8px] font-black px-1.5 py-0.5 rounded-md z-10">
-        {product.discount}
-      </div>
-      {/* Product illustration — SVG themed per product type */}
+    <div className={`relative bg-[#1c0a0a] border ${isActive ? 'border-[var(--color-brand)]/40' : 'border-white/[0.08]'} rounded-2xl p-3 flex-shrink-0 w-[120px] flex flex-col gap-2 ${isLocked ? 'opacity-50' : ''}`}>
+      {isActive && (
+        <div className="absolute top-2 left-2 bg-[var(--color-brand)] text-white text-[7px] font-black px-1.5 py-0.5 rounded-md z-10 animate-pulse">
+          ATIVO
+        </div>
+      )}
+      {!isActive && !isLocked && (
+        <div className="absolute top-2 left-2 bg-green-600 text-white text-[7px] font-black px-1.5 py-0.5 rounded-md z-10">
+          ✓
+        </div>
+      )}
       <div className="w-full h-[72px] rounded-xl bg-[#2a1010]/80 flex items-center justify-center">
-        {PRODUCT_ICONS[product.emoji] ?? <span className="text-3xl">{product.emoji}</span>}
+        {MODULE_ICONS[module.icon] ?? <span className="text-3xl">{module.icon}</span>}
       </div>
-      <p className="text-white text-[10px] font-medium leading-tight">{product.name}</p>
-      <p className="text-white font-black text-[13px] leading-none">{product.price}</p>
+      <p className="text-white text-[10px] font-medium leading-tight">{module.name}</p>
+      <p className="text-white/40 font-sans text-[9px] leading-none">{module.level}</p>
       <div className="flex items-center gap-0.5">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <path d="M5 1l1.2 2.5L9 4l-2 2 .5 2.8L5 7.5 2.5 8.8 3 6 1 4l2.8-.5L5 1z" fill="rgba(250,204,21,0.9)"/>
-        </svg>
-        <span className="text-[9px] text-white/50">{product.rating}</span>
+        <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-[var(--color-brand)]/20 text-[var(--color-brand)]' : 'bg-white/5 text-white/30'} font-sans font-bold`}>{module.tag}</span>
       </div>
     </div>
   );
 }
 
-// iPhone screen UI — exactly matches image 2
+// iPhone screen UI — Protocol learning platform
 function IPhoneScreen() {
-  const allProducts = [...MAKEUP_PRODUCTS, ...MAKEUP_PRODUCTS, ...MAKEUP_PRODUCTS];
+  const allModules = [...PROTOCOL_MODULES, ...PROTOCOL_MODULES, ...PROTOCOL_MODULES];
   return (
     <div className="w-full h-full bg-[#0d0404] flex flex-col overflow-hidden">
       {/* Status bar */}
@@ -113,49 +82,48 @@ function IPhoneScreen() {
           <span className="font-serif text-[var(--color-brand)] text-[22px] leading-none italic">Flow</span>
         </div>
         <div className="w-9 h-9 rounded-full border border-white/20 bg-white/[0.05] flex items-center justify-center">
-          <ShoppingBag className="w-4 h-4 text-white/70" />
+          <BookOpen className="w-4 h-4 text-white/70" />
         </div>
       </div>
 
       {/* Search bar */}
       <div className="mx-4 mb-4 bg-[#1a0808]/90 border border-white/[0.08] rounded-2xl px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
-        <Search className="w-3.5 h-3.5 text-white/25" />
-        <span className="text-white/25 text-xs font-sans">Buscar paletas...</span>
+        <Play className="w-3.5 h-3.5 text-white/25" />
+        <span className="text-white/25 text-xs font-sans">Buscar módulos...</span>
       </div>
 
       {/* Section header */}
       <div className="px-4 mb-3 flex items-center justify-between flex-shrink-0">
-        <span className="text-white/65 font-black text-[10px] tracking-[0.18em] uppercase font-sans">Destaques Exclusivos</span>
+        <span className="text-white/65 font-black text-[10px] tracking-[0.18em] uppercase font-sans">Seu Protocolo</span>
         <span className="text-[var(--color-brand)] font-bold text-[11px]">→</span>
       </div>
 
-      {/* 3-column horizontal scroll feed */}
+      {/* Horizontal scroll modules */}
       <div className="px-2 overflow-hidden flex-shrink-0 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
         <motion.div
           className="flex gap-2.5 pb-2"
           animate={{ x: [0, -800] }}
           transition={{ repeat: Infinity, ease: 'linear', duration: 22 }}
         >
-          {allProducts.map((p, i) => <PhoneProductCard key={i} product={p} />)}
+          {allModules.map((m, i) => <PhoneModuleCard key={i} module={m} />)}
         </motion.div>
       </div>
 
-      {/* Vault Blur container — Kit Complete Flow is premium-locked */}
+      {/* Vault Blur container — Master Class is premium-locked */}
       <div className="relative mx-4 mt-4 flex-shrink-0">
-        {/* Blurred kit CTA behind the vault */}
         <div className="pointer-events-none select-none" style={{ filter: 'blur(7px)', opacity: 0.6 }}>
           <div className="bg-[var(--color-brand)] rounded-[20px] p-4 flex items-center gap-3 shadow-[0_8px_30px_rgba(153,0,0,0.3)]">
             <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-lg">⭐</span>
+              <span className="text-white text-lg">🎓</span>
             </div>
             <div className="flex flex-col">
-              <p className="text-white font-black text-[15px] leading-tight font-sans">Kit Complete Flow</p>
-              <p className="text-white/70 text-[10px] uppercase tracking-[0.15em] font-sans mt-0.5">Desconto Ativado</p>
+              <p className="text-white font-black text-[15px] leading-tight font-sans">Master Class Flow</p>
+              <p className="text-white/70 text-[10px] uppercase tracking-[0.15em] font-sans mt-0.5">Protocolo Avançado</p>
             </div>
           </div>
         </div>
 
-        {/* Padlock overlay — centered, breathing glow */}
+        {/* Padlock overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.06, 1] }}
@@ -173,12 +141,12 @@ function IPhoneScreen() {
         </div>
       </div>
 
-      {/* Bottom nav dock — 5 symmetric slots, bag perfectly centered */}
+      {/* Bottom nav dock */}
       <div className="mt-auto px-4 pb-4 pt-3 flex justify-around items-center flex-shrink-0">
         <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
         <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
         <div className="w-12 h-7 rounded-full bg-[var(--color-brand)] flex items-center justify-center shadow-[0_0_12px_rgba(153,0,0,0.6)]">
-          <ShoppingBag className="w-4 h-4 text-white" />
+          <Play className="w-4 h-4 text-white" />
         </div>
         <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
         <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
@@ -259,16 +227,16 @@ function IPhoneMockup() {
 
 // MacBook Pro with vertical infinite marquee
 function MacBookMockup() {
-  const priceItems = [
-    { brand: 'MAC', product: 'Studio Fix Blur', price: 'R$ 97', original: 'R$ 220', pct: '-56%' },
-    { brand: 'O Boticário', product: 'Glossy Shine', price: 'R$ 42', original: 'R$ 89', pct: '-53%' },
-    { brand: 'Vult', product: 'Base Líquida', price: 'R$ 19', original: 'R$ 45', pct: '-58%' },
-    { brand: 'Shopee', product: 'Paleta Niina', price: 'R$ 89', original: 'R$ 149', pct: '-40%' },
-    { brand: 'Amazon', product: 'Batom YSL', price: 'R$ 159', original: 'R$ 310', pct: '-49%' },
-    { brand: 'Natura', product: 'Sérum Pré-Make', price: 'R$ 89', original: 'R$ 149', pct: '-40%' },
-    { brand: 'Quem Disse', product: 'Fixador Bruminha', price: 'R$ 34', original: 'R$ 69', pct: '-51%' },
+  const lessonItems = [
+    { module: 'Módulo 1', lesson: 'Preparação da Pele', duration: '12 min', status: '✓ Completo' },
+    { module: 'Módulo 2', lesson: 'Base Natural', duration: '18 min', status: '✓ Completo' },
+    { module: 'Módulo 3', lesson: 'Contorno e Iluminação', duration: '15 min', status: '▶ Em andamento' },
+    { module: 'Módulo 4', lesson: 'Olho Esfumado Clássico', duration: '22 min', status: '🔒 Bloqueado' },
+    { module: 'Módulo 5', lesson: 'Boca e Acabamento', duration: '14 min', status: '🔒 Bloqueado' },
+    { module: 'Módulo 6', lesson: 'Look Completo em 5 Min', duration: '20 min', status: '🔒 Bloqueado' },
+    { module: 'Bônus', lesson: 'Maquiagem para Fotos', duration: '25 min', status: '🔒 Bloqueado' },
   ];
-  const tripled = [...priceItems, ...priceItems, ...priceItems];
+  const tripled = [...lessonItems, ...lessonItems, ...lessonItems];
 
   return (
     <div className="relative w-full max-w-xl hidden md:block">
@@ -292,16 +260,16 @@ function MacBookMockup() {
 
           <div className="flex justify-between items-center mb-4 relative z-10">
             <div>
-              <p className="text-[var(--color-brand)] text-[9px] font-black uppercase tracking-[0.25em]">Sistema Ativo Agora</p>
-              <h3 className="font-serif text-white text-xl">Painel de Preços</h3>
+              <p className="text-[var(--color-brand)] text-[9px] font-black uppercase tracking-[0.25em]">Seu Progresso</p>
+              <h3 className="font-serif text-white text-xl">Protocolo Make Flow</h3>
             </div>
             <div className="flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 px-3 py-1 rounded-full">
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-green-400 text-[9px] font-bold uppercase tracking-wider">Live</span>
+              <span className="text-green-400 text-[9px] font-bold uppercase tracking-wider">Ativo</span>
             </div>
           </div>
 
-          {/* Vertical scrolling price feed */}
+          {/* Vertical scrolling lesson feed */}
           <div className="flex-1 overflow-hidden relative z-10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
             <motion.div
               className="flex flex-col gap-2"
@@ -311,15 +279,12 @@ function MacBookMockup() {
               {tripled.map((item, i) => (
                 <div key={i} className="flex items-center justify-between bg-[#150606]/80 border border-white/[0.06] rounded-xl px-3 py-2.5 flex-shrink-0">
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-[var(--color-brand)] text-[8px] font-black uppercase tracking-wider">{item.brand}</span>
-                    <span className="text-white text-[11px] font-medium font-sans">{item.product}</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-white/35 text-[9px] line-through">{item.original}</span>
-                      <span className="text-white font-black text-[12px]">{item.price}</span>
-                    </div>
+                    <span className="text-[var(--color-brand)] text-[8px] font-black uppercase tracking-wider">{item.module}</span>
+                    <span className="text-white text-[11px] font-medium font-sans">{item.lesson}</span>
+                    <span className="text-white/30 text-[9px]">{item.duration}</span>
                   </div>
-                  <div className="bg-[var(--color-brand)] text-white text-[9px] font-black px-2 py-1 rounded-lg shadow-[0_0_8px_rgba(153,0,0,0.5)]">
-                    {item.pct}
+                  <div className={`text-[9px] font-bold px-2 py-1 rounded-lg ${item.status.startsWith('✓') ? 'bg-green-500/10 text-green-400 border border-green-500/20' : item.status.startsWith('▶') ? 'bg-[var(--color-brand)] text-white shadow-[0_0_8px_rgba(153,0,0,0.5)]' : 'bg-white/5 text-white/30'}`}>
+                    {item.status}
                   </div>
                 </div>
               ))}
@@ -475,8 +440,8 @@ export function HardwareShowcase() {
               transition={{ duration: 0.9, delay: 0.1 }}
               className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-[1.05]"
             >
-              Seu sistema de beauty<br />
-              <span className="italic font-light text-white/80">inteligente</span>
+              Seu protocolo de beauty<br />
+              <span className="italic font-light text-white/80">personalizado</span>
             </motion.h2>
           </div>
           <motion.p
@@ -486,7 +451,7 @@ export function HardwareShowcase() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/40 text-base font-light font-sans max-w-sm leading-relaxed"
           >
-            Comparamos preços de maquiagem em tempo real. Você recebe alertas automáticos antes de todo mundo.
+            Aprenda técnicas profissionais no seu ritmo. Módulos práticos, protocolos exclusivos e resultados reais.
           </motion.p>
         </div>
 
