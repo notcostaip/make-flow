@@ -132,7 +132,7 @@ function MaterialCard({ mat, idx }: { mat: typeof MATERIALS[0]; idx: number }) {
 
 export function BridgeSection() {
   return (
-    <section className="w-full py-32 relative overflow-hidden bg-[#050505]">
+    <section className="w-full py-32 relative overflow-hidden bg-[#050505] hidden md:block">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(153,0,0,0.07)_0%,transparent_55%)] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">

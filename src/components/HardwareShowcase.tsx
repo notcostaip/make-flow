@@ -408,6 +408,108 @@ function MacBookMockup() {
   );
 }
 
+// iPad with Apple Pencil — mobile only
+function IPadMockup() {
+  const lessonItems = [
+    { module: 'Módulo 1', lesson: 'Preparação da Pele', duration: '12 min', status: '✓ Completo' },
+    { module: 'Módulo 2', lesson: 'Base Natural', duration: '18 min', status: '✓ Completo' },
+    { module: 'Módulo 3', lesson: 'Contorno e Iluminação', duration: '15 min', status: '▶ Em andamento' },
+    { module: 'Módulo 4', lesson: 'Olho Esfumado Clássico', duration: '22 min', status: '🔒 Bloqueado' },
+    { module: 'Módulo 5', lesson: 'Boca e Acabamento', duration: '14 min', status: '🔒 Bloqueado' },
+    { module: 'Bônus', lesson: 'Maquiagem para Fotos', duration: '25 min', status: '🔒 Bloqueado' },
+  ];
+  const doubled = [...lessonItems, ...lessonItems, ...lessonItems];
+
+  return (
+    <div className="relative w-full max-w-sm mx-auto md:hidden">
+      {/* Apple Pencil SVG */}
+      <div className="absolute -right-3 -top-8 z-30 pointer-events-none" style={{ transform: 'rotate(25deg)' }}>
+        <svg width="12" height="180" viewBox="0 0 12 180" fill="none">
+          {/* Pencil body */}
+          <rect x="1" y="20" width="10" height="145" rx="5" fill="#2a2a2a" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5"/>
+          {/* Silver ring */}
+          <rect x="0.5" y="18" width="11" height="6" rx="2" fill="#555" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5"/>
+          {/* Tip */}
+          <path d="M3 165 L6 178 L9 165" fill="#1a1a1a" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5"/>
+          {/* Top cap */}
+          <rect x="1" y="8" width="10" height="14" rx="5" fill="#333" stroke="rgba(255,255,255,0.12)" strokeWidth="0.5"/>
+          {/* Flat edge highlight */}
+          <rect x="4" y="22" width="1" height="140" rx="0.5" fill="rgba(255,255,255,0.06)"/>
+        </svg>
+      </div>
+
+      {/* iPad body */}
+      <div
+        className="relative w-full rounded-[1.5rem] overflow-hidden"
+        style={{
+          aspectRatio: '4/3',
+          background: 'linear-gradient(145deg, #1a0808 0%, #0d0404 100%)',
+          boxShadow: '0 0 0 1px rgba(255,255,255,0.12), 0 0 0 6px #1a0808, 0 0 0 7px rgba(255,255,255,0.06), 0 30px 80px rgba(0,0,0,0.8)',
+        }}
+      >
+        {/* Camera dot */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#1a1a1a] border border-white/10 z-30" />
+
+        {/* Screen */}
+        <div className="absolute inset-[6px] rounded-[1.2rem] overflow-hidden bg-[#0d0404]">
+          <div className="w-full h-full flex flex-col p-4 pt-6 relative">
+            {/* Internal glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(153,0,0,0.12)_0%,transparent_60%)] pointer-events-none" />
+
+            <div className="flex justify-between items-center mb-3 relative z-10">
+              <div>
+                <p className="text-[var(--color-brand)] text-[8px] font-black uppercase tracking-[0.25em]">Seu Progresso</p>
+                <h3 className="font-serif text-white text-base">Protocolo Make Flow</h3>
+              </div>
+              <div className="flex items-center gap-1 bg-green-500/10 border border-green-500/30 px-2 py-0.5 rounded-full">
+                <div className="w-1 h-1 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-green-400 text-[7px] font-bold uppercase tracking-wider">Ativo</span>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full h-1.5 rounded-full bg-white/5 mb-3 relative z-10 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-[var(--color-brand)] to-red-400"
+                initial={{ width: '0%' }}
+                whileInView={{ width: '42%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, delay: 0.5, ease: 'easeOut' }}
+              />
+            </div>
+            <p className="text-white/25 text-[7px] font-sans mb-2 relative z-10">2 de 6 módulos completos · 42% concluído</p>
+
+            {/* Vertical scrolling lesson feed */}
+            <div className="flex-1 overflow-hidden relative z-10 [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]">
+              <motion.div
+                className="flex flex-col gap-1.5"
+                animate={{ y: [0, -500] }}
+                transition={{ repeat: Infinity, ease: 'linear', duration: 18 }}
+              >
+                {doubled.map((item, i) => (
+                  <div key={i} className="flex items-center justify-between bg-[#150606]/80 border border-white/[0.06] rounded-lg px-2.5 py-2 flex-shrink-0">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[var(--color-brand)] text-[7px] font-black uppercase tracking-wider">{item.module}</span>
+                      <span className="text-white text-[10px] font-medium font-sans">{item.lesson}</span>
+                      <span className="text-white/25 text-[7px]">{item.duration}</span>
+                    </div>
+                    <div className={`text-[7px] font-bold px-1.5 py-0.5 rounded-md ${item.status.startsWith('✓') ? 'bg-green-500/10 text-green-400 border border-green-500/20' : item.status.startsWith('▶') ? 'bg-[var(--color-brand)] text-white shadow-[0_0_6px_rgba(153,0,0,0.5)]' : 'bg-white/5 text-white/30'}`}>
+                      {item.status}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* iPad ambient shadow */}
+      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[200px] h-6 bg-[var(--color-brand)] blur-[24px] opacity-10 rounded-full" />
+    </div>
+  );
+}
+
 export function HardwareShowcase() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
@@ -455,7 +557,7 @@ export function HardwareShowcase() {
           </motion.p>
         </div>
 
-        {/* Device layout: iPhone + MacBook side by side */}
+        {/* Device layout: iPhone + iPad(mobile) / MacBook(desktop) */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -466,12 +568,24 @@ export function HardwareShowcase() {
             <IPhoneMockup />
           </motion.div>
 
+          {/* iPad — mobile only */}
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-xl"
+            className="w-full md:hidden"
+          >
+            <IPadMockup />
+          </motion.div>
+
+          {/* MacBook — desktop only */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-xl hidden md:block"
           >
             <MacBookMockup />
           </motion.div>

@@ -227,31 +227,75 @@ function OptionCard({
   );
 }
 
-// ── Progress dots ─────────────────────────────────────────────────────────
+// ── Progress bar — dopaminérgico ──────────────────────────────────────────
 function ProgressDots({ current, total }: { current: number; total: number }) {
+  const pct = Math.round((current / total) * 100);
+  const motivations = [
+    '', // 0
+    '🔥 Ótimo começo!',
+    '💪 Continuando...',
+    '✨ Metade do caminho!',
+    '🚀 Quase lá!',
+    '💎 Falta pouco!',
+    '🎯 Última etapa!',
+    '🎉 Concluído!',
+  ];
+  const msg = motivations[Math.min(current, motivations.length - 1)] || '';
+
   return (
     <div className="flex flex-col items-center gap-3 w-full">
-      <div className="flex items-center gap-2">
-        {Array.from({ length: total }).map((_, i) => (
+      {/* Progress bar */}
+      <div className="w-full h-2 rounded-full bg-white/[0.06] overflow-hidden relative">
+        <motion.div
+          className="h-full rounded-full relative"
+          style={{
+            background: 'linear-gradient(90deg, #990000 0%, #cc0000 50%, #ff3333 100%)',
+          }}
+          animate={{
+            width: `${pct}%`,
+            boxShadow: ['0 0 8px rgba(204,0,0,0.4)', '0 0 20px rgba(204,0,0,0.7)', '0 0 8px rgba(204,0,0,0.4)'],
+          }}
+          transition={{
+            width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+            boxShadow: { duration: 1.5, repeat: Infinity },
+          }}
+        >
+          {/* Shimmer on bar */}
           <motion.div
-            key={i}
-            animate={{
-              width: i === current - 1 ? 24 : 6,
-              background: i < current
-                ? 'rgba(153,0,0,1)'
-                : 'rgba(255,255,255,0.1)',
-              boxShadow: i === current - 1
-                ? '0 0 8px rgba(153,0,0,0.8)'
-                : 'none',
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25) 50%, transparent)',
             }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="h-[5px] rounded-full"
+            animate={{ x: ['-100%', '200%'] }}
+            transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 2, ease: 'easeInOut' }}
           />
-        ))}
+        </motion.div>
       </div>
-      <div className="flex justify-between w-full text-[10px] text-white/20 font-sans uppercase tracking-[0.3em]">
-        <span>Etapa {current} de {total}</span>
-        <span>{Math.round((current / total) * 100)}%</span>
+
+      {/* Labels row */}
+      <div className="flex justify-between w-full items-center">
+        <motion.span
+          key={current}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[11px] text-white/50 font-sans font-medium"
+        >
+          {msg}
+        </motion.span>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-white/20 font-sans uppercase tracking-[0.2em]">
+            {current}/{total}
+          </span>
+          <motion.span
+            key={pct}
+            initial={{ scale: 1.4, color: '#cc0000' }}
+            animate={{ scale: 1, color: 'rgba(255,255,255,0.35)' }}
+            transition={{ duration: 0.4 }}
+            className="text-[11px] font-mono font-bold"
+          >
+            {pct}%
+          </motion.span>
+        </div>
       </div>
     </div>
   );

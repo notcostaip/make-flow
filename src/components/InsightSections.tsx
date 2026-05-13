@@ -80,7 +80,7 @@ export function CostComparisonSection() {
   const BAR_H_MF    = Math.round((197 / WASTE_TOTAL) * BAR_H_WASTE); // ~38px
 
   return (
-    <section className="relative w-full py-28 px-4 overflow-hidden">
+    <section className="relative w-full py-16 md:py-28 px-4 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[280px] bg-[#990000] blur-[220px] opacity-[0.07] rounded-full" />
       </div>
@@ -331,7 +331,7 @@ export function FAQSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full py-24 px-4">
+    <section className="relative w-full py-14 md:py-24 px-4">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
 
       <div className="max-w-2xl mx-auto flex flex-col gap-10">

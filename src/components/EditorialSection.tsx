@@ -23,7 +23,7 @@ const PAIN_POINTS = [
 
 export function EditorialSection() {
   return (
-    <section className="w-full py-32 relative overflow-hidden">
+    <section className="w-full py-16 md:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#0d0404] to-[#050505] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(153,0,0,0.12)_0%,transparent_60%)] pointer-events-none" />
 

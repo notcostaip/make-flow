@@ -43,7 +43,7 @@ export function BenefitsSection() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(153,0,0,0.15)_0%,transparent_55%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-0 pb-4 scrollbar-hide sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-5 sm:gap-0 sm:pb-0">
           {FEATURES.map((feat, idx) => {
             const Icon = feat.icon;
             const isFirst = idx === 0;
@@ -54,7 +54,7 @@ export function BenefitsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className={`group relative flex flex-col p-6 sm:p-8 border-b border-white/[0.07] sm:border-r sm:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(even)]:border-r lg:last:border-r-0 lg:border-b-0 cursor-default ${isFirst ? 'border-l border-l-[var(--color-brand)]/60' : ''}`}
+                className={`group relative flex flex-col p-6 sm:p-8 border-b border-white/[0.07] sm:border-r sm:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(even)]:border-r lg:last:border-r-0 lg:border-b-0 cursor-default min-w-[260px] sm:min-w-0 snap-start ${isFirst ? 'border-l border-l-[var(--color-brand)]/60' : ''}`}
               >
                 {/* Large ghost number */}
                 <span className="absolute top-4 right-6 font-serif text-[88px] leading-none text-white/[0.04] pointer-events-none select-none group-hover:text-[var(--color-brand)]/10 transition-colors duration-700">

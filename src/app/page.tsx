@@ -19,6 +19,7 @@ import { BridgeSection }                            from '@/components/BridgeSec
 import { CostComparisonSection, FAQSection }        from '@/components/InsightSections';
 import { QuizSection }                              from '@/components/QuizSection';
 import { Footer }                                   from '@/components/Footer';
+import { FloatingCTA }                              from '@/components/FloatingCTA';
 
 // ── CANVAS — must be ssr:false (window/requestAnimationFrame required) ───
 const ParticleBackground = dynamic(
@@ -83,12 +84,13 @@ export default function Home() {
             <CostComparisonSection />
             <FAQSection />
 
-            <div id="quiz-section" className="w-full py-32 border-t border-[var(--color-brand)]/15 relative">
+            <div id="quiz-section" className="w-full py-16 md:py-32 border-t border-[var(--color-brand)]/15 relative">
               <div className="absolute top-0 left-0 w-full h-[400px] bg-gradient-to-b from-[#990000]/[0.08] to-transparent pointer-events-none" />
               <QuizSection onComplete={handleQuizComplete} />
             </div>
 
             <Footer />
+            <FloatingCTA />
           </motion.div>
         ) : (
           <motion.div
