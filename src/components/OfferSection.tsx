@@ -224,7 +224,7 @@ export function OfferSection() {
 
           {/* What's included */}
           <div className="flex flex-col items-start gap-2 max-w-xs mx-auto text-left">
-            {['Acesso vitalício ao Método Make Flow', 'Sistema exclusivo de Preços Inteligentes', 'E-books + Protocolos prontos', 'Suporte direto da equipe Make Flow'].map((item) => (
+            {['Acesso vitalício ao Método Make Flow', 'Aulas + Protocolos em vídeo passo a passo', 'E-books + Guias de aplicação', 'Suporte direto da equipe Make Flow'].map((item) => (
               <div key={item} className="flex items-center gap-2.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <circle cx="7" cy="7" r="6" stroke="rgba(34,197,94,0.45)" strokeWidth="1"/>

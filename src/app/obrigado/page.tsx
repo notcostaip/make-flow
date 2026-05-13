@@ -178,15 +178,15 @@ export default function ObrigadoPage() {
               </div>
 
               <p className="text-white/40 font-sans font-light text-sm sm:text-base leading-relaxed max-w-md mx-auto">
-                O <strong className="text-white/65">Protocolo Make Flow</strong> inclui sistema de preços inteligentes que monitora promoções em marcas como Sephora, O Boticário, NYX e L'Oréal — 24h por dia — e te avisa <em>antes de qualquer site de comparação</em>.
+                O <strong className="text-white/65">Protocolo Make Flow</strong> inclui aulas práticas em vídeo, protocolos de aplicação passo a passo e suporte exclusivo da equipe — tudo pronto para você aplicar <em>a partir de hoje</em>.
               </p>
 
               {/* Stats rápidas */}
               <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto">
                 {[
-                  { value: '4.200', label: 'membras ativas' },
-                  { value: 'R$240', label: 'economizados/mês' },
-                  { value: '24h', label: 'monitoramento' },
+                  { value: '4.200', label: 'alunas ativas' },
+                  { value: '6h+', label: 'de conteúdo' },
+                  { value: '30', label: 'dias de garantia' },
                 ].map((s) => (
                   <div key={s.label} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3">
                     <p className="font-serif text-white text-lg font-medium">{s.value}</p>

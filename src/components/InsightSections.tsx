@@ -65,8 +65,8 @@ const WASTE_ITEMS = [
 ];
 
 const MF_BENEFITS = [
-  'Sistema de Preços Inteligentes',
-  'Acesso ao painel de comparação (-80%)',
+  'Protocolos de maquiagem profissional',
+  'Aulas em vídeo passo a passo',
   'Suporte vitalício',
   'Acesso imediato',
 ];
@@ -309,7 +309,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Vou precisar investir muito em produtos?',
-    a: 'Pelo contrário. O Sistema de Preços Inteligentes monitora descontos de até 80% nos melhores sites. A economia da sua primeira compra guiada já paga o Make Flow inteiro.',
+    a: 'Pelo contrário. O protocolo ensina exatamente quais produtos usar para o seu tipo de pele — sem desperdício. A economia da sua primeira compra guiada já paga o Make Flow inteiro.',
     Icon: IconTag,
     hint: 'Economia de até 80%',
   },
