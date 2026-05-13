@@ -185,42 +185,114 @@ export function OfferSection() {
       <div className="w-full flex flex-col items-center gap-8 relative">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[var(--color-brand)] blur-[160px] opacity-[0.07] rounded-full pointer-events-none" />
 
-        {/* Price card — editorial serif */}
-        <div className="text-center relative z-10 w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 border border-white/[0.06] rounded-3xl bg-black/30 backdrop-blur-sm">
-          <p className="text-white/25 text-[10px] uppercase tracking-[0.45em] font-sans font-black mb-6">Acesso Exclusivo (Hoje)</p>
+        {/* Price card — MAXIMUM impact */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center relative z-10 w-full max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14 rounded-3xl overflow-hidden"
+          style={{
+            background: 'linear-gradient(145deg, rgba(20,5,5,0.9) 0%, rgba(5,2,2,0.95) 100%)',
+            border: '1.5px solid rgba(153,0,0,0.45)',
+            boxShadow: '0 0 80px rgba(153,0,0,0.15), 0 0 160px rgba(153,0,0,0.08), 0 40px 80px rgba(0,0,0,0.6)',
+          }}
+        >
+          {/* Animated border glow */}
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-brand)] to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-brand)]/30 to-transparent" />
+
+          {/* Floating sparkles */}
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-[var(--color-brand)]"
+              style={{
+                left: `${15 + i * 18}%`,
+                top: `${20 + (i % 3) * 25}%`,
+              }}
+              animate={{
+                opacity: [0, 0.6, 0],
+                scale: [0.5, 1.2, 0.5],
+                y: [0, -20, 0],
+              }}
+              transition={{
+                duration: 2 + i * 0.5,
+                repeat: Infinity,
+                delay: i * 0.4,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+
+          <p className="text-white/30 text-[10px] uppercase tracking-[0.45em] font-sans font-black mb-8">Acesso Exclusivo (Hoje)</p>
 
           {/* 12x installment price */}
-          <div className="flex items-start justify-center gap-3 mb-3">
+          <div className="flex items-start justify-center gap-3 mb-4">
             <div className="flex flex-col items-end mt-6">
               <span className="text-white/40 text-sm font-sans font-light">12x</span>
               <span className="text-white/60 font-serif text-xl font-semibold leading-none">R$</span>
             </div>
-            <div className="flex items-end">
+            <motion.div
+              className="flex items-end"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5, type: 'spring', bounce: 0.3 }}
+            >
               <span
                 className="text-white font-serif leading-none"
-                style={{ fontSize: 'clamp(80px, 18vw, 130px)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1 }}
+                style={{
+                  fontSize: 'clamp(80px, 18vw, 130px)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                  textShadow: '0 0 40px rgba(153,0,0,0.5), 0 0 80px rgba(153,0,0,0.25)',
+                }}
               >
               22
               </span>
               <span className="text-white font-serif font-light mb-2" style={{ fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 ,30
               </span>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Discount badges */}
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="text-white/25 text-sm font-sans line-through">De R$ 497,00</span>
-            <span className="bg-white/[0.06] border border-white/[0.10] text-white/60 text-xs font-black px-3 py-1 rounded-full font-sans tracking-wide">
-              60% OFF
+          {/* Discount badges — more aggressive */}
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="text-white/20 text-base font-sans relative">
+              <span className="line-through">De R$ 497,00</span>
             </span>
+            <motion.span
+              animate={{
+                boxShadow: ['0 0 8px rgba(34,197,94,0.2)', '0 0 20px rgba(34,197,94,0.5)', '0 0 8px rgba(34,197,94,0.2)'],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="bg-green-500/15 border border-green-500/40 text-green-400 text-xs font-black px-4 py-1.5 rounded-full font-sans tracking-wide"
+            >
+              60% OFF
+            </motion.span>
           </div>
 
-          <p className="text-white/35 text-sm uppercase tracking-[0.25em] font-sans font-light">
-            ou R$ 197,00 à vista <span className="text-white/20">·</span> <span className="text-white/45">+10% com cupom MAKE10</span>
+          {/* À vista highlight — the R$197 */}
+          <motion.div
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl mx-auto mb-2"
+            style={{
+              background: 'rgba(153,0,0,0.08)',
+              border: '1px solid rgba(153,0,0,0.35)',
+            }}
+            animate={{
+              boxShadow: ['0 0 15px rgba(153,0,0,0.15)', '0 0 35px rgba(153,0,0,0.3)', '0 0 15px rgba(153,0,0,0.15)'],
+            }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+          >
+            <span className="text-white/60 text-sm font-sans font-medium">ou</span>
+            <span className="text-white font-serif font-bold text-2xl sm:text-3xl" style={{ textShadow: '0 0 20px rgba(153,0,0,0.4)' }}>
+              R$ 197
+            </span>
+            <span className="text-white/60 text-sm font-sans font-medium">à vista</span>
+          </motion.div>
+          <p className="text-white/30 text-xs font-sans mt-2 mb-6">
+            <span className="text-green-400/60">+10% off</span> com cupom <span className="font-mono font-bold text-white/50 bg-white/5 px-1.5 py-0.5 rounded">MAKE10</span>
           </p>
-
-          <div className="w-16 h-[1px] bg-[var(--color-brand)]/25 mx-auto my-6" />
 
           {/* What's included */}
           <div className="flex flex-col items-start gap-2 max-w-xs mx-auto text-left">
@@ -234,7 +306,7 @@ export function OfferSection() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Guarantee Trust Cards ── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full relative z-10">
