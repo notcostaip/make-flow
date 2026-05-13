@@ -14,7 +14,7 @@ const FEATURES = [
     num: '2',
     icon: CalendarDays,
     title: 'TRILHA 2\nSEMANAS',
-    desc: 'Aulas rápidas e estruturadas por níveis para evolução garantida.',
+    desc: 'Guias práticos e estruturados por níveis para evolução garantida.',
   },
   {
     num: '3',

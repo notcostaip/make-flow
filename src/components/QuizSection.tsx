@@ -302,29 +302,39 @@ function ProgressDots({ current, total }: { current: number; total: number }) {
 }
 
 // ── Main QuizSection ──────────────────────────────────────────────────────
-export function QuizSection({ onComplete }: { onComplete: () => void }) {
+import { playClickSound, playSuccessSound, triggerHaptic } from '@/utils/feedback';
+
+// ... (existing code)
+
+export function QuizSection({ onComplete }: { onComplete: (answers: Record<number, string>) => void }) {
   const quiz = useQuiz(QUIZ_QUESTIONS.length);
   const [shimmer, setShimmer] = useState(false);
   const [showDNA, setShowDNA] = useState(false);
 
-  const handleOptionClick = useCallback(() => {
+  const handleOptionClick = useCallback((answer: string) => {
+    // Sensory feedback
+    playClickSound();
+    triggerHaptic(15);
+    
     setShimmer(true);
     setTimeout(() => setShimmer(false), 700);
 
     setTimeout(() => {
       if (quiz.currentStep === quiz.totalSteps) {
-        quiz.completeQuiz();
-        onComplete();
+        quiz.completeQuiz(answer);
+        playSuccessSound();
+        onComplete(quiz.answers);
       } else if (quiz.state === 'idle') {
         quiz.startQuiz();
       } else if (quiz.currentStep === 6) {
+        quiz.nextStep(answer);
         setShowDNA(true);
         setTimeout(() => {
           setShowDNA(false);
           quiz.nextStep();
         }, 2600);
       } else {
-        quiz.nextStep();
+        quiz.nextStep(answer);
       }
     }, 350);
   }, [quiz, onComplete]);
@@ -442,7 +452,7 @@ export function QuizSection({ onComplete }: { onComplete: () => void }) {
                       label={option}
                       letter={currentQ.options.length === 1 ? '→' : OPTION_LETTERS[idx]}
                       delay={idx * 0.06}
-                      onClick={handleOptionClick}
+                      onClick={() => handleOptionClick(option)}
                       single={currentQ.options.length === 1}
                     />
                   ))}

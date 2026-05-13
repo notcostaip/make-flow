@@ -66,7 +66,7 @@ export function FloatingCTA() {
                 animate={{ x: ['-100%', '200%'] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: 'easeInOut' }}
               />
-              <span className="relative z-10">Quero Meu Protocolo →</span>
+              <span className="relative z-10">Descobrir Minha Rotina Ideal →</span>
             </button>
             <p className="text-center text-white/20 text-[10px] mt-2 uppercase tracking-[0.2em]">
               Quiz rápido · 2 minutos

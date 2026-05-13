@@ -129,8 +129,8 @@ export function HeroSection() {
             transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-[90px] xl:text-[100px] text-white font-medium leading-[1.1] md:leading-[1] lg:leading-[0.92] tracking-tight"
           >
-            Maquiagem que<br />
-            <span className="italic font-light text-white/85">funciona de verdade</span>
+            Pare de gastar errado<br />
+            <span className="italic font-light text-white/85">em maquiagem</span>
           </motion.h1>
 
           <motion.p
@@ -139,7 +139,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.8 }}
             className="text-sm sm:text-base md:text-lg lg:text-xl text-white/40 max-w-xl font-light font-sans leading-relaxed px-4"
           >
-            Do diagnóstico ao look completo — sem desperdício, sem tutoriais inúteis, sem maquiagem derretendo.
+            Em 2 minutos, descubra exatamente o que usar, como aplicar e nunca mais sentir que jogou dinheiro fora.
           </motion.p>
         </div>
 
@@ -160,9 +160,9 @@ export function HeroSection() {
               });
             }}
           >
-            Quero Meu Protocolo →
+            Descobrir Minha Rotina Ideal →
           </CTAButton>
-          <p className="text-white/20 uppercase tracking-[0.3em] text-[10px] font-sans">Descubra em 2 minutos</p>
+          <p className="text-white/20 uppercase tracking-[0.3em] text-[10px] font-sans">Grátis • 7 perguntas • 2 minutos</p>
         </motion.div>
       </motion.div>
     </section>

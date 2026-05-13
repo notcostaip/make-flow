@@ -178,7 +178,7 @@ export default function ObrigadoPage() {
               </div>
 
               <p className="text-white/40 font-sans font-light text-sm sm:text-base leading-relaxed max-w-md mx-auto">
-                O <strong className="text-white/65">Protocolo Make Flow</strong> inclui aulas práticas em vídeo, protocolos de aplicação passo a passo e suporte exclusivo da equipe — tudo pronto para você aplicar <em>a partir de hoje</em>.
+                O <strong className="text-white/65">Protocolo Make Flow</strong> inclui guias práticos ilustrados, protocolos de aplicação passo a passo e suporte exclusivo da equipe — tudo pronto para você aplicar <em>a partir de hoje</em>.
               </p>
 
               {/* Stats rápidas */}

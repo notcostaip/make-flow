@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BookOpen, Video, Package, ArrowRight } from 'lucide-react';
+import { BookOpen, FileText, Package, ArrowRight } from 'lucide-react';
 
 
 const MATERIALS = [
@@ -19,14 +19,14 @@ const MATERIALS = [
   },
   {
     type: 'Módulo 2',
-    tag: 'TRILHA DE AULAS',
-    icon: Video,
+    tag: 'GUIA PRÁTICO',
+    icon: FileText,
     title: 'Base Perfeita em 2 Semanas',
-    desc: 'Aulas em vídeo curtas e estruturadas por nível. Do corretivo ao contorno, sem complicação.',
+    desc: 'Protocolos ilustrados e passo a passo por nível. Do corretivo ao contorno, sem complicação.',
     color: '#3d0000',
     accent: '#990000',
-    pages: '14 aulas',
-    emoji: '🎬',
+    pages: '14 protocolos',
+    emoji: '📋',
     locked: true,
   },
   {
@@ -166,7 +166,7 @@ export function BridgeSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/35 max-w-xl mt-6 font-light font-sans leading-relaxed text-base"
           >
-            Além do diagnóstico, você recebe o método completo. Aulas, e-books e protocolos exclusivos para dominar sua maquiagem de vez.
+            Além do diagnóstico, você recebe o método completo. Guias práticos, e-books e protocolos exclusivos para dominar sua maquiagem de vez.
           </motion.p>
         </div>
 

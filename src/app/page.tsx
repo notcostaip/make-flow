@@ -22,6 +22,11 @@ import { Footer }                                   from '@/components/Footer';
 import { FloatingCTA }                              from '@/components/FloatingCTA';
 
 // ── CANVAS — must be ssr:false (window/requestAnimationFrame required) ───
+import { ResultsShowcase }                           from '@/components/ResultsShowcase';
+import { SalesNotification }                          from '@/components/SalesNotification';
+import { ExitIntentPopup }                            from '@/components/ExitIntentPopup';
+
+// ── CANVAS — must be ssr:false (window/requestAnimationFrame required) ───
 const ParticleBackground = dynamic(
   () => import('@/components/ParticleBackground').then(m => ({ default: m.ParticleBackground })),
   { ssr: false }
@@ -36,8 +41,10 @@ const OfferSection = dynamic(
 
 export default function Home() {
   const [isQuizComplete, setIsQuizComplete] = useState(false);
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, string> | undefined>();
 
-  const handleQuizComplete = () => {
+  const handleQuizComplete = (answers: Record<number, string>) => {
+    setQuizAnswers(answers);
     setIsQuizComplete(true);
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 500);
   };
@@ -55,6 +62,10 @@ export default function Home() {
     <main className="min-h-screen w-full overflow-x-hidden font-sans bg-[#050505] scroll-smooth relative z-0">
       {/* Canvas: deferred, not blocking first paint */}
       <ParticleBackground />
+
+      {/* Social Proof & Conversion Triggers */}
+      <SalesNotification />
+      <ExitIntentPopup />
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(153,0,0,0.1)_0%,rgba(5,5,5,1)_60%)] pointer-events-none -z-10" />
 
@@ -78,6 +89,7 @@ export default function Home() {
             </div>
             <div id="investimento" className="w-full">
               <BenefitsSection />
+              <ResultsShowcase />
             </div>
 
             <BridgeSection />
@@ -168,7 +180,7 @@ export default function Home() {
             transition={{ duration: 1.2, type: 'spring', bounce: 0.25 }}
             className="w-full min-h-screen pt-32 pb-40"
           >
-            <OfferSection />
+            <OfferSection answers={quizAnswers} />
           </motion.div>
         )}
       </AnimatePresence>

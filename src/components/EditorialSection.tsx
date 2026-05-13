@@ -71,6 +71,22 @@ export function EditorialSection() {
             );
           })}
         </div>
+
+        {/* Emotional amplifier — makes the pain FELT */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-white/30 font-serif text-lg sm:text-xl italic leading-relaxed max-w-lg mx-auto">
+            Cada mês que passa, você gasta mais R$ 200 em produtos errados e continua se sentindo insegura no espelho.
+          </p>
+          <p className="text-[var(--color-brand)]/70 font-sans text-sm font-bold uppercase tracking-[0.3em] mt-4">
+            E se existisse um caminho mais inteligente?
+          </p>
+        </motion.div>
       </div>
     </section>
   );

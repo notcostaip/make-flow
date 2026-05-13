@@ -66,7 +66,7 @@ const WASTE_ITEMS = [
 
 const MF_BENEFITS = [
   'Protocolos de maquiagem profissional',
-  'Aulas em vídeo passo a passo',
+  'Guias ilustrados passo a passo',
   'Suporte vitalício',
   'Acesso imediato',
 ];
@@ -324,6 +324,12 @@ const FAQ_ITEMS = [
     a: '30 dias de garantia total — sem questionar, sem burocracia. Se você aplicar os protocolos e não ver resultado, devolvemos 100% do valor. Simples assim.',
     Icon: IconMedal,
     hint: 'Garantia de 30 dias',
+  },
+  {
+    q: 'Como eu começo?',
+    a: 'Fazendo o diagnóstico gratuito aqui nesta página. São 7 perguntas que mapeiam seu tipo de pele, sua rotina e seu nível. Em menos de 2 minutos, você recebe seu protocolo personalizado e pode acessar imediatamente.',
+    Icon: IconAccess,
+    hint: 'Grátis — 2 minutos',
   },
 ];
 

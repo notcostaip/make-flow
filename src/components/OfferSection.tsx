@@ -127,8 +127,29 @@ function SeamlessCheckout() {
   );
 }
 
-export function OfferSection() {
+export function OfferSection({ answers }: { answers?: Record<number, string> }) {
   const { minutes, seconds, isFinished } = useCountdown(15);
+
+  // Dynamic Content Logic
+  const skinType = answers?.[2] || 'seu biotipo';
+  const mainChallenge = answers?.[1] || 'sua rotina';
+  const desiredLook = answers?.[5] || 'Magnética';
+
+  const dynamicHeadline = answers ? (
+    <>
+      Protocolo de Pele <span className="italic font-light text-white/85">{desiredLook}</span><br />
+      <span className="text-3xl md:text-5xl opacity-60">Gerado para {skinType}</span>
+    </>
+  ) : (
+    <>
+      Sua Rotina,<br />
+      <span className="italic font-light text-white/85">Transformada.</span>
+    </>
+  );
+
+  const dynamicSub = answers 
+    ? `Com base no seu desafio com "${mainChallenge}", desbloqueamos as técnicas exatas para você nunca mais errar.`
+    : "Com base no diagnóstico do seu perfil, desbloqueamos o acesso ao protocolo mais exclusivo do Make Flow para você.";
 
   return (
     <motion.section
@@ -150,12 +171,11 @@ export function OfferSection() {
         </motion.div>
 
         <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif text-white drop-shadow-2xl leading-[1.02]">
-          Sua Rotina,<br />
-          <span className="italic font-light text-white/85">Transformada.</span>
+          {dynamicHeadline}
         </h2>
 
         <p className="text-base sm:text-lg text-white/40 max-w-2xl mx-auto font-light font-sans leading-relaxed">
-          Com base no diagnóstico do seu perfil, desbloqueamos o acesso ao protocolo mais exclusivo do Make Flow para você.
+          {dynamicSub}
         </p>
       </div>
 
@@ -179,6 +199,29 @@ export function OfferSection() {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      {/* Value Stack — anchoring perceived value */}
+      <div className="w-full max-w-lg mx-auto">
+        <p className="text-center text-white/20 text-[10px] uppercase tracking-[0.4em] font-sans font-black mb-6">O que está incluso (e quanto custaria separado)</p>
+        <div className="flex flex-col gap-2">
+          {[
+            { item: 'Diagnóstico Personalizado de Pele', value: 'R$ 250' },
+            { item: 'Guia Completo: Kit Essencial de Maquiagem', value: 'R$ 97' },
+            { item: '14 Protocolos de Aplicação Passo a Passo', value: 'R$ 497' },
+            { item: '3 Rotinas Prontas (Dia, Noite, Evento)', value: 'R$ 150' },
+            { item: 'Suporte Vitalício com a Equipe', value: 'R$ 300' },
+          ].map(({ item, value }) => (
+            <div key={item} className="flex items-center justify-between py-2.5 px-4 border-b border-white/[0.04]">
+              <span className="text-white/50 text-sm font-sans font-light">{item}</span>
+              <span className="text-white/20 text-sm font-sans line-through">{value}</span>
+            </div>
+          ))}
+          <div className="flex items-center justify-between py-3 px-4 mt-2 bg-[var(--color-brand)]/[0.06] border border-[var(--color-brand)]/20 rounded-xl">
+            <span className="text-white/70 text-sm font-sans font-bold">Valor Total Real</span>
+            <span className="text-white/40 text-lg font-serif line-through">R$ 1.294</span>
+          </div>
+        </div>
       </div>
 
       {/* Pricing + Checkout block */}
@@ -296,7 +339,7 @@ export function OfferSection() {
 
           {/* What's included */}
           <div className="flex flex-col items-start gap-2 max-w-xs mx-auto text-left">
-            {['Acesso vitalício ao Método Make Flow', 'Aulas + Protocolos em vídeo passo a passo', 'E-books + Guias de aplicação', 'Suporte direto da equipe Make Flow'].map((item) => (
+            {['Acesso vitalício ao Método Make Flow', 'Protocolos ilustrados passo a passo', 'E-books + Guias de aplicação', 'Suporte direto da equipe Make Flow'].map((item) => (
               <div key={item} className="flex items-center gap-2.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <circle cx="7" cy="7" r="6" stroke="rgba(34,197,94,0.45)" strokeWidth="1"/>
