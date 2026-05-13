@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import { CTAButton } from '@/components/CTAButton';
 
 // 24h countdown with localStorage persistence
 function useHeroCountdown() {
@@ -63,7 +64,7 @@ function CountdownTimer() {
       className="flex flex-col items-center gap-5"
     >
       <p className="text-[var(--color-brand)] text-[10px] font-black uppercase tracking-[0.45em] font-sans">
-        Oferta Encerra Em
+        Protocolo Fecha Em
       </p>
       <div className="flex items-start gap-3">
         <TimeUnit value={pad(h)} label="Horas" />
@@ -143,17 +144,25 @@ export function HeroSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center gap-4"
         >
-          <p className="text-white/20 uppercase tracking-[0.3em] text-[10px] mb-4 font-sans">Role para descobrir</p>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-[1px] h-12 bg-gradient-to-b from-[var(--color-brand)] to-transparent"
-          />
+          <CTAButton
+            size="lg"
+            onClick={() => {
+              requestAnimationFrame(() => {
+                const el = document.getElementById('quiz-section');
+                if (!el) return;
+                const top = el.getBoundingClientRect().top + window.scrollY - 88;
+                window.scrollTo({ top, behavior: 'smooth' });
+              });
+            }}
+          >
+            Quero Meu Protocolo →
+          </CTAButton>
+          <p className="text-white/20 uppercase tracking-[0.3em] text-[10px] font-sans">Descubra em 2 minutos</p>
         </motion.div>
       </motion.div>
     </section>

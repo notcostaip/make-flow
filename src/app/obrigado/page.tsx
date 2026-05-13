@@ -4,14 +4,14 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const TELEGRAM_LINK = 'https://t.me/makeflawbot';
+const PLATFORM_LINK = 'https://makeflow.com.br/acesso'; // Replace with actual platform link
 
 /* ── Small helpers ─────────────────────────────────────────────── */
 
-function TelegramIcon() {
+function ArrowIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden>
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-2.008 9.463c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.24-.213-.054-.333-.373-.12L7.166 13.99l-2.966-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.988.569z" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 12h14M12 5l7 7-7 7" />
     </svg>
   );
 }
@@ -57,7 +57,7 @@ const TESTIMONIALS = [
   {
     name: 'Fernanda M.',
     city: 'Belo Horizonte',
-    text: 'Comprei minha base favorita com 65% de desconto. O bot alertou antes de qualquer site.',
+    text: 'Comprei minha base favorita com 65% de desconto. O sistema alertou antes de qualquer site.',
     stars: 5,
     saving: '65% off',
   },
@@ -71,8 +71,8 @@ const TESTIMONIALS = [
 ];
 
 const INACTION_ITEMS = [
-  { emoji: '💸', text: 'Outras membros economizaram em média R$240 só esse mês.' },
-  { emoji: '🔔', text: 'O bot já alertou 3 promoções acima de 60% hoje — você não viu nenhuma.' },
+  { emoji: '💸', text: 'Outras membras economizaram em média R$240 só esse mês.' },
+  { emoji: '🔔', text: 'O sistema já encontrou 3 promoções acima de 60% hoje — você não viu nenhuma.' },
   { emoji: '🔒', text: 'Seu acesso como membra está ativo agora. Ele não espera para sempre.' },
 ];
 
@@ -137,7 +137,7 @@ export default function ObrigadoPage() {
 
           <p className="text-white/45 font-sans font-light text-base sm:text-lg leading-relaxed max-w-lg mx-auto">
             Sua decisão foi tomada. O protocolo está a caminho.<br />
-            Agora existe <strong className="text-white/70">um único passo</strong> entre você e os melhores preços em beleza do Brasil.
+            Agora existe <strong className="text-white/70">um único passo</strong> entre você e o seu protocolo exclusivo de maquiagem.
           </p>
         </motion.div>
 
@@ -148,7 +148,7 @@ export default function ObrigadoPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.9 }}
-          aria-label="Ativar acesso ao Telegram"
+          aria-label="Ativar acesso à plataforma"
           className="mb-14"
         >
           <div
@@ -172,13 +172,13 @@ export default function ObrigadoPage() {
                   Passo final · exclusivo para membras
                 </p>
                 <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-[1.1]">
-                  Ative o Radar de Ofertas<br />
-                  <span className="italic font-light text-white/70">no seu Telegram agora</span>
+                  Ative Seu Protocolo<br />
+                  <span className="italic font-light text-white/70">e acesse a plataforma agora</span>
                 </h2>
               </div>
 
               <p className="text-white/40 font-sans font-light text-sm sm:text-base leading-relaxed max-w-md mx-auto">
-                O <strong className="text-white/65">Bot Make Flow</strong> monitora promoções em marcas como Sephora, O Boticário, NYX e L'Oréal — 24h por dia — e te avisa <em>antes de qualquer site de comparação</em>.
+                O <strong className="text-white/65">Protocolo Make Flow</strong> inclui sistema de preços inteligentes que monitora promoções em marcas como Sephora, O Boticário, NYX e L'Oréal — 24h por dia — e te avisa <em>antes de qualquer site de comparação</em>.
               </p>
 
               {/* Stats rápidas */}
@@ -197,8 +197,8 @@ export default function ObrigadoPage() {
 
               {/* CTA */}
               <motion.a
-                id="cta-telegram-principal"
-                href={TELEGRAM_LINK}
+                id="cta-plataforma-principal"
+                href={PLATFORM_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.04, y: -3 }}
@@ -217,8 +217,8 @@ export default function ObrigadoPage() {
                   border: '1px solid rgba(255,90,90,0.35)',
                 }}
               >
-                <TelegramIcon />
-                Garantir minha vaga agora →
+                <ArrowIcon />
+                Acessar Meu Protocolo Agora →
               </motion.a>
 
               <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">
@@ -336,7 +336,7 @@ export default function ObrigadoPage() {
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#cc0000]" />
           </span>
           <p className="text-white/35 font-sans text-xs">
-            <strong className="text-white/60">+4.200 membras</strong> ativas no grupo agora
+            <strong className="text-white/60">+4.200 membras</strong> ativas na plataforma agora
           </p>
         </motion.div>
 
@@ -356,12 +356,12 @@ export default function ObrigadoPage() {
             <span className="italic font-light text-white/65">Não saia de mãos vazias.</span>
           </h2>
           <p className="text-white/35 font-sans text-sm leading-relaxed max-w-sm mx-auto">
-            O grupo é <strong className="text-white/60">gratuito para membras</strong>, o acesso é imediato — e cada minuto fora custa dinheiro real.
+            A plataforma é <strong className="text-white/60">gratuita para membras</strong>, o acesso é imediato — e cada minuto fora custa dinheiro real.
           </p>
 
           <motion.a
-            id="cta-telegram-final"
-            href={TELEGRAM_LINK}
+            id="cta-plataforma-final"
+            href={PLATFORM_LINK}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04, y: -3 }}
@@ -380,8 +380,8 @@ export default function ObrigadoPage() {
               border: '1px solid rgba(255,90,90,0.35)',
             }}
           >
-            <TelegramIcon />
-            Entrar no grupo agora →
+            <ArrowIcon />
+            Acessar meu protocolo agora →
           </motion.a>
 
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">

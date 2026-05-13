@@ -36,7 +36,7 @@ const BENEFITS = [
   { Icon: IconFace, title: 'Base Sem Máscara', desc: 'Fórmula leve com cobertura real que não acumula nas linhas.' },
   { Icon: IconBolt, title: 'Rotina em 5 Minutos', desc: 'Protocolos rápidos para o dia a dia sem complicação.' },
   { Icon: IconShield, title: 'Método Validado', desc: 'Desenvolvido por make artistas com + de 10 anos de carreira.' },
-  { Icon: IconRibbon, title: 'Comunidade Exclusiva', desc: 'Suporte, feedback e desafios semanais com a equipe Make Flow.' },
+  { Icon: IconRibbon, title: 'Suporte Exclusivo', desc: 'Acompanhamento, feedback personalizado e desafios semanais com a equipe Make Flow.' },
 ];
 
 // Guarantee trust cards
@@ -146,7 +146,7 @@ export function OfferSection() {
           transition={{ repeat: Infinity, duration: 2.5 }}
           className="inline-block bg-[var(--color-brand)]/10 border border-[var(--color-brand)]/60 text-[var(--color-brand)] px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest backdrop-blur-md font-sans"
         >
-          {isFinished ? 'Oferta Encerrada' : `Vaga reservada por ${minutes}:${seconds}`}
+          {isFinished ? 'Protocolo Encerrado' : `Vaga reservada por ${minutes}:${seconds}`}
         </motion.div>
 
         <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif text-white drop-shadow-2xl leading-[1.02]">
@@ -187,7 +187,7 @@ export function OfferSection() {
 
         {/* Price card — editorial serif */}
         <div className="text-center relative z-10 w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 border border-white/[0.06] rounded-3xl bg-black/30 backdrop-blur-sm">
-          <p className="text-white/25 text-[10px] uppercase tracking-[0.45em] font-sans font-black mb-6">Oferta Especial (Hoje)</p>
+          <p className="text-white/25 text-[10px] uppercase tracking-[0.45em] font-sans font-black mb-6">Acesso Exclusivo (Hoje)</p>
 
           {/* 12x installment price */}
           <div className="flex items-start justify-center gap-3 mb-3">
@@ -224,7 +224,7 @@ export function OfferSection() {
 
           {/* What's included */}
           <div className="flex flex-col items-start gap-2 max-w-xs mx-auto text-left">
-            {['Acesso vitalício ao Método Make Flow', 'App exclusivo com Radar de Ofertas', 'E-books + Protocolos prontos', 'Comunidade e suporte da equipe'].map((item) => (
+            {['Acesso vitalício ao Método Make Flow', 'Sistema exclusivo de Preços Inteligentes', 'E-books + Protocolos prontos', 'Suporte direto da equipe Make Flow'].map((item) => (
               <div key={item} className="flex items-center gap-2.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <circle cx="7" cy="7" r="6" stroke="rgba(34,197,94,0.45)" strokeWidth="1"/>

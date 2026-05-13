@@ -65,8 +65,8 @@ const WASTE_ITEMS = [
 ];
 
 const MF_BENEFITS = [
-  'Protocolo personalizado',
-  'Radar de ofertas (−80%)',
+  'Sistema de Preços Inteligentes',
+  'Acesso ao painel de comparação (-80%)',
   'Suporte vitalício',
   'Acesso imediato',
 ];
@@ -309,13 +309,13 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Vou precisar investir muito em produtos?',
-    a: 'Pelo contrário. O Radar de Ofertas monitora descontos de até 80% nos melhores sites. A economia da sua primeira compra guiada já paga o Make Flow inteiro.',
+    a: 'Pelo contrário. O Sistema de Preços Inteligentes monitora descontos de até 80% nos melhores sites. A economia da sua primeira compra guiada já paga o Make Flow inteiro.',
     Icon: IconTag,
     hint: 'Economia de até 80%',
   },
   {
     q: 'Tenho acesso ao Radar imediatamente?',
-    a: 'No segundo após o checkout, o link do Telegram e da plataforma são liberados no seu e-mail. Não há espera — é acesso 24h, sem fila.',
+    a: 'No segundo após o checkout, o link da plataforma é liberado no seu e-mail. Não há espera — é acesso 24h, sem fila.',
     Icon: IconRadar,
     hint: 'Acesso instantâneo',
   },

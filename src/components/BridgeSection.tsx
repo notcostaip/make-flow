@@ -166,7 +166,7 @@ export function BridgeSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/35 max-w-xl mt-6 font-light font-sans leading-relaxed text-base"
           >
-            Além das ofertas, você recebe o método completo. Aulas, e-books e protocolos exclusivos para dominar sua maquiagem de vez.
+            Além do diagnóstico, você recebe o método completo. Aulas, e-books e protocolos exclusivos para dominar sua maquiagem de vez.
           </motion.p>
         </div>
 

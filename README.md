@@ -1,15 +1,16 @@
 # Make Flow 🔴
 
-A high-performance, conversion-focused sales funnel built with Next.js and Tailwind CSS. Designed with a luxury dark-red aesthetic, Make Flow provides an optimized user journey from initial engagement to community upsell.
+Um funil de vendas de alta performance construído com Next.js e Tailwind CSS. Projetado com uma estética premium dark-red, o Make Flow entrega uma jornada otimizada do primeiro contato ao protocolo exclusivo de maquiagem.
 
 ## 🚀 Features
 
-- **Gated Funnel:** Cinematic content, product grids, and checkout are revealed only after completing a 7-step interactive quiz.
-- **Premium UI/UX:** Luxury dark mode design with vibrant red accents, smooth gradients, and glassmorphism elements.
-- **Interactive Quiz:** Built-in quiz engine to qualify leads and increase engagement.
-- **Seamless Checkout:** Integration with PepperPay for a frictionless purchasing experience.
-- **Community Upsell:** Post-purchase workflow driving users to a private Telegram community for alerts, support, and challenges.
-- **Responsive Design:** Fully optimized for mobile and desktop viewing.
+- **Funil Inteligente:** Conteúdo cinematográfico, grids de produtos e checkout são revelados apenas após completar o quiz interativo de 7 etapas.
+- **UI/UX Premium:** Design dark mode de luxo com acentos vermelhos vibrantes, gradientes suaves e elementos de glassmorphism.
+- **Quiz Interativo:** Motor de quiz integrado para qualificar leads e aumentar o engajamento.
+- **Checkout Integrado:** Integração com PepperPay para uma experiência de compra sem fricção.
+- **Protocolo Exclusivo:** Pós-compra com acesso ao sistema de preços inteligentes, e-books e protocolos personalizados.
+- **Design Responsivo:** Totalmente otimizado para mobile e desktop.
+- **Pinterest Ads Tag:** Integração pronta com Pinterest Ads para tracking de conversões.
 
 ## 🛠 Tech Stack
 

@@ -125,7 +125,7 @@ function IPhoneScreen() {
 
       {/* Section header */}
       <div className="px-4 mb-3 flex items-center justify-between flex-shrink-0">
-        <span className="text-white/65 font-black text-[10px] tracking-[0.18em] uppercase font-sans">Ofertas Premium</span>
+        <span className="text-white/65 font-black text-[10px] tracking-[0.18em] uppercase font-sans">Destaques Exclusivos</span>
         <span className="text-[var(--color-brand)] font-bold text-[11px]">→</span>
       </div>
 
@@ -292,8 +292,8 @@ function MacBookMockup() {
 
           <div className="flex justify-between items-center mb-4 relative z-10">
             <div>
-              <p className="text-[var(--color-brand)] text-[9px] font-black uppercase tracking-[0.25em]">Robô Online Agora</p>
-              <h3 className="font-serif text-white text-xl">Radar de Ofertas</h3>
+              <p className="text-[var(--color-brand)] text-[9px] font-black uppercase tracking-[0.25em]">Sistema Ativo Agora</p>
+              <h3 className="font-serif text-white text-xl">Painel de Preços</h3>
             </div>
             <div className="flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 px-3 py-1 rounded-full">
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -475,7 +475,7 @@ export function HardwareShowcase() {
               transition={{ duration: 0.9, delay: 0.1 }}
               className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-[1.05]"
             >
-              Sua loja de beauty<br />
+              Seu sistema de beauty<br />
               <span className="italic font-light text-white/80">inteligente</span>
             </motion.h2>
           </div>
@@ -486,7 +486,7 @@ export function HardwareShowcase() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/40 text-base font-light font-sans max-w-sm leading-relaxed"
           >
-            Garimpamos preços de maquiagem em tempo real. Você recebe alertas no Telegram antes de todo mundo.
+            Comparamos preços de maquiagem em tempo real. Você recebe alertas automáticos antes de todo mundo.
           </motion.p>
         </div>
 
