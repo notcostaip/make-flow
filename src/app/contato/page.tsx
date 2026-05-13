@@ -14,9 +14,9 @@ export default function ContatoPage() {
 
         <div className="grid gap-5">
           {[
-            { label: 'E-mail Geral', value: 'contato@makeflow.com.br', href: 'mailto:contato@makeflow.com.br' },
-            { label: 'Suporte Técnico', value: 'suporte@makeflow.com.br', href: 'mailto:suporte@makeflow.com.br' },
-            { label: 'Parcerias', value: 'parcerias@makeflow.com.br', href: 'mailto:parcerias@makeflow.com.br' },
+            { label: 'E-mail Geral', value: 'contato@makeflow.com', href: 'mailto:contato@makeflow.com' },
+            { label: 'Suporte Técnico', value: 'suporte@makeflow.com', href: 'mailto:suporte@makeflow.com' },
+            { label: 'Parcerias', value: 'parcerias@makeflow.com', href: 'mailto:parcerias@makeflow.com' },
           ].map(({ label, value, href }) => (
             <a
               key={label}

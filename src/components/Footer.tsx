@@ -33,10 +33,9 @@ export function Footer() {
             A plataforma de inteligência de maquiagem para quem quer resultados reais, sem desperdício.
           </p>
 
-          <div className="flex flex-col gap-5 mt-2">
-            <p className="text-white/10 text-[10px] uppercase tracking-[0.4em] font-sans font-black">CNPJ</p>
-            <p className="text-white/20 text-sm font-mono font-light -mt-4">60.778.755/0001-43</p>
-          </div>
+          <a href="mailto:contato@makeflow.com" className="text-white/25 text-sm font-sans font-light hover:text-white/50 transition-colors mt-2">
+            contato@makeflow.com
+          </a>
 
           <p className="text-white/15 text-xs font-sans font-light mt-2">
             © 2026 Make Flow. Todos os direitos reservados.

@@ -45,12 +45,10 @@ export default function SuportePage() {
         <div className="border-t border-white/[0.06] pt-8 space-y-3">
           <p className="text-white/35 font-sans text-sm">Não encontrou o que precisa?</p>
           <a
-            href="https://wa.me/5561994503567"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:contato@makeflow.com"
             className="inline-flex items-center gap-2 bg-[#990000]/10 border border-[#990000]/40 text-[#990000] px-5 py-2.5 rounded-full text-sm font-black uppercase tracking-widest hover:bg-[#990000]/20 transition-all"
           >
-            Falar com suporte →
+            Enviar e-mail →
           </a>
         </div>
 
