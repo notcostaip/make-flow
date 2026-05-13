@@ -1,65 +1,107 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { AnimatePresence, motion } from 'framer-motion';
+
+// ── CRITICAL PATH — above-the-fold, synchronous ──────────────────────────
+// These must be available immediately — server renders them to HTML
+import { NavigationBar }  from '@/components/NavigationBar';
+import { HeroSection }    from '@/components/HeroSection';
+import { MarqueeSection } from '@/components/MarqueeSection';
+
+// ── BELOW THE FOLD — direct imports (SSR'd for instant paint) ────────────
+// Next.js renders these on the server → browser receives complete HTML
+import { EditorialSection }                         from '@/components/EditorialSection';
+import { HardwareShowcase }                         from '@/components/HardwareShowcase';
+import { BenefitsSection }                          from '@/components/BenefitsSection';
+import { BridgeSection }                            from '@/components/BridgeSection';
+import { CostComparisonSection, FAQSection }        from '@/components/InsightSections';
+import { QuizSection }                              from '@/components/QuizSection';
+import { Footer }                                   from '@/components/Footer';
+
+// ── CANVAS — must be ssr:false (window/requestAnimationFrame required) ───
+const ParticleBackground = dynamic(
+  () => import('@/components/ParticleBackground').then(m => ({ default: m.ParticleBackground })),
+  { ssr: false }
+);
+
+// ── POST-QUIZ ONLY — user spends 2+ min on quiz before this shows ────────
+// Safe to lazy-load: user has plenty of time while answering questions
+const OfferSection = dynamic(
+  () => import('@/components/OfferSection').then(m => ({ default: m.OfferSection })),
+  { ssr: false }
+);
 
 export default function Home() {
+  const [isQuizComplete, setIsQuizComplete] = useState(false);
+
+  const handleQuizComplete = () => {
+    setIsQuizComplete(true);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 500);
+  };
+
+  const startQuiz = () => {
+    requestAnimationFrame(() => {
+      const el = document.getElementById('quiz-section');
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 88;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="min-h-screen w-full overflow-x-hidden font-sans bg-[#050505] scroll-smooth relative z-0">
+      {/* Canvas: deferred, not blocking first paint */}
+      <ParticleBackground />
+
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(153,0,0,0.1)_0%,rgba(5,5,5,1)_60%)] pointer-events-none -z-10" />
+
+      <AnimatePresence mode="wait">
+        {!isQuizComplete ? (
+          <motion.div
+            key="lander"
+            exit={{ opacity: 0, y: -60, filter: 'blur(12px)' }}
+            transition={{ duration: 0.55, ease: 'easeInOut' }}
+            className="w-full flex-1 flex flex-col items-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <NavigationBar onStartQuiz={startQuiz} />
+            <HeroSection />
+            <MarqueeSection />
+
+            <div id="o-método" className="w-full">
+              <EditorialSection />
+            </div>
+            <div id="a-plataforma" className="w-full">
+              <HardwareShowcase />
+            </div>
+            <div id="investimento" className="w-full">
+              <BenefitsSection />
+            </div>
+
+            <BridgeSection />
+            <CostComparisonSection />
+            <FAQSection />
+
+            <div id="quiz-section" className="w-full py-32 border-t border-[var(--color-brand)]/15 relative">
+              <div className="absolute top-0 left-0 w-full h-[400px] bg-gradient-to-b from-[#990000]/[0.08] to-transparent pointer-events-none" />
+              <QuizSection onComplete={handleQuizComplete} />
+            </div>
+
+            <Footer />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="offer"
+            initial={{ opacity: 0, scale: 0.97, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, type: 'spring', bounce: 0.25 }}
+            className="w-full min-h-screen pt-32 pb-40"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <OfferSection />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }

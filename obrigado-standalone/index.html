@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bem-vinda, Make Flow — Compra Confirmada</title>
+  <meta name="description" content="Sua compra foi confirmada. Ative agora o Radar de Ofertas no Telegram e comece a economizar em beleza." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #cc0000;
+      --red-dark: #990000;
+      --red-cta: #d40000;
+      --red-deep: #7a0000;
+      --white: #ffffff;
+      --bg: #050505;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Background blobs ── */
+    .bg-blob-1 {
+      position: fixed; top: -10%; right: 10%;
+      width: 700px; height: 700px;
+      background: var(--red-dark);
+      filter: blur(300px);
+      opacity: 0.06;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .bg-blob-2 {
+      position: fixed; bottom: 10%; left: 5%;
+      width: 400px; height: 400px;
+      background: #550000;
+      filter: blur(200px);
+      opacity: 0.05;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .bg-grid {
+      position: fixed; inset: 0;
+      opacity: 0.015;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem 1rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 26px; height: 26px; object-fit: contain; }
+    .nav-logo span {
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Content wrapper ── */
+    .content {
+      position: relative; z-index: 10;
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 0 1rem 7rem;
+    }
+
+    /* ── Section 1: Hero ── */
+    .hero {
+      text-align: center;
+      padding: 2.5rem 0 3.5rem;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(153,0,0,0.1);
+      border: 1px solid rgba(153,0,0,0.35);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: scale(0.4);
+      animation: popIn 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.25s forwards;
+    }
+    .badge span:last-child {
+      color: var(--red);
+      font-size: 0.625rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.25rem, 6vw, 3.75rem);
+      line-height: 1.07;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+    }
+    .hero p {
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+      line-height: 1.7;
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+    .hero p strong { color: rgba(255,255,255,0.7); font-weight: 700; }
+
+    /* ── Section 2: CTA Card ── */
+    .cta-section {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.9s ease 0.5s forwards;
+    }
+    .card {
+      position: relative;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(14,2,2,0.95), rgba(8,1,1,0.98));
+      border: 1px solid rgba(153,0,0,0.45);
+      box-shadow: 0 0 100px rgba(153,0,0,0.09), 0 40px 80px rgba(0,0,0,0.55);
+    }
+    .card-top-line {
+      position: absolute; inset: 0 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,0,0,0.8) 50%, transparent);
+    }
+    .card-body {
+      padding: 2rem 2.5rem;
+      text-align: center;
+    }
+    @media (min-width: 640px) { .card-body { padding: 3rem; } }
+
+    .eyebrow {
+      color: var(--red);
+      font-size: 0.5625rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5em;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.7); }
+
+    .card-desc {
+      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      line-height: 1.7;
+      max-width: 28rem;
+      margin: 0 auto 1.5rem;
+    }
+    .card-desc strong { color: rgba(255,255,255,0.65); font-weight: 700; }
+    .card-desc em { font-style: italic; }
+
+    /* Stats grid */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      max-width: 22rem;
+      margin: 0 auto 1.75rem;
+    }
+    .stat {
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      padding: 0.75rem 0.5rem;
+    }
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.625rem;
+      line-height: 1.3;
+      margin-top: 0.125rem;
+    }
+
+    /* CTA Button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--white);
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--red-cta) 0%, var(--red-deep) 100%);
+      border: 1px solid rgba(255,90,90,0.35);
+      width: 100%;
+      max-width: 22rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @media (min-width: 640px) { .btn-cta { width: auto; } }
+    .btn-cta:hover { transform: scale(1.04) translateY(-3px); }
+    .btn-cta:active { transform: scale(0.96); }
+
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.375rem 1.25rem;
+      margin-top: 1rem;
+    }
+    .trust-badges span {
+      color: rgba(255,255,255,0.2);
+      font-size: 0.625rem;
+    }
+
+    /* ── Section 3: Testimonials ── */
+    .testimonials-section {
+      margin-bottom: 3.5rem;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .section-header h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+
+    .testimonials-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .testimonial {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 2px solid rgba(153,0,0,0.55);
+      background: rgba(255,255,255,0.025);
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .testimonial.visible {
+      animation: slideIn 0.6s ease forwards;
+    }
+    .avatar {
+      flex-shrink: 0;
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 50%;
+      background: rgba(153,0,0,0.2);
+      border: 1px solid rgba(153,0,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--red);
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .testimonial-body { flex: 1; }
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.4rem;
+    }
+    .t-name { font-family: 'Cormorant Garamond', serif; font-size: 0.875rem; }
+    .t-city { color: rgba(255,255,255,0.25); font-size: 0.625rem; }
+    .t-saving {
+      color: var(--red); font-size: 0.625rem; font-weight: 700;
+      background: rgba(153,0,0,0.1);
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(153,0,0,0.2);
+    }
+    .stars { display: flex; gap: 2px; }
+    .stars svg { width: 11px; height: 11px; }
+    .t-text {
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* ── Section 4: Inaction cost ── */
+    .inaction-section { margin-bottom: 2.5rem; }
+    .inaction-card {
+      position: relative;
+      border-radius: 1.5rem;
+      padding: 1.75rem 2rem;
+      overflow: hidden;
+      background: rgba(18,2,2,0.92);
+      border: 1px solid rgba(153,0,0,0.2);
+    }
+    @media (min-width: 640px) { .inaction-card { padding: 2.5rem; } }
+    .inaction-top-line {
+      position: absolute; inset: 0 0 auto; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(153,0,0,0.5) 50%, transparent);
+    }
+    .inaction-eyebrow {
+      color: var(--red);
+      font-size: 0.5625rem; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.5em;
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .inaction-items { display: flex; flex-direction: column; gap: 1rem; }
+    .inaction-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      opacity: 0; transform: translateX(-14px);
+    }
+    .inaction-item.visible { animation: slideIn 0.5s ease forwards; }
+    .inaction-emoji { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .inaction-text {
+      color: rgba(255,255,255,0.5);
+      font-weight: 300; font-size: 0.875rem; line-height: 1.6;
+    }
+
+    /* ── Live counter ── */
+    .live-counter {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.625rem; margin-bottom: 2.5rem;
+      opacity: 0;
+    }
+    .live-counter.visible { animation: fadeIn 0.6s ease forwards; }
+    .ping-dot {
+      position: relative;
+      width: 0.625rem; height: 0.625rem;
+    }
+    .ping-dot::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: rgba(153,0,0,0.75);
+      animation: ping 1.2s ease-in-out infinite;
+    }
+    .ping-dot::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .live-text { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
+    .live-text strong { color: rgba(255,255,255,0.6); font-weight: 700; }
+
+    /* ── Final CTA section ── */
+    .final-cta {
+      text-align: center;
+    }
+    .final-cta h2 { margin-bottom: 1rem; }
+    .final-cta p {
+      color: rgba(255,255,255,0.35);
+      font-size: 0.875rem; line-height: 1.7;
+      max-width: 22rem; margin: 0 auto 1.5rem;
+    }
+    .final-cta p strong { color: rgba(255,255,255,0.6); font-weight: 700; }
+
+    .back-link {
+      display: block; margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.15);
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: rgba(255,255,255,0.35); }
+
+    /* ── Telegram icon ── */
+    .tg-icon { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(180,0,0,0.45); }
+      50%       { box-shadow: 0 0 55px rgba(210,0,0,0.8); }
+    }
+    @keyframes ping {
+      0%, 100% { transform: scale(1); opacity: 0.75; }
+      50%       { transform: scale(2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg-blob-1" aria-hidden="true"></div>
+  <div class="bg-blob-2" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="/" class="nav-logo" aria-label="Voltar ao início Make Flow">
+      <img src="https://i.imgur.com/placeholder.png" alt="" id="logo-img" width="26" height="26" />
+      <span>Make Flow</span>
+    </a>
+  </nav>
+
+  <div class="content">
+
+    <!-- 1. Hero -->
+    <div class="hero">
+      <div class="badge">
+        <span aria-hidden="true">🎉</span>
+        <span>Compra confirmada</span>
+      </div>
+      <h1>Bem-vinda,<br><em>Make Flow.</em></h1>
+      <p>
+        Sua decisão foi tomada. O protocolo está a caminho.<br />
+        Agora existe <strong>um único passo</strong> entre você e os melhores preços em beleza do Brasil.
+      </p>
+    </div>
+
+    <!-- 2. CTA Card -->
+    <section class="cta-section" aria-label="Ativar acesso ao Telegram">
+      <div class="card">
+        <div class="card-top-line"></div>
+        <div class="card-body">
+          <p class="eyebrow">Passo final · exclusivo para membras</p>
+          <h2>Ative o Radar de Ofertas<br><em>no seu Telegram agora</em></h2>
+          <p class="card-desc">
+            O <strong>Bot Make Flow</strong> monitora promoções em marcas como Sephora, O Boticário, NYX e L'Oréal
+            — 24h por dia — e te avisa <em>antes de qualquer site de comparação</em>.
+          </p>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-value">4.200</div>
+              <div class="stat-label">membras ativas</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">R$240</div>
+              <div class="stat-label">economizados/mês</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">24h</div>
+              <div class="stat-label">monitoramento</div>
+            </div>
+          </div>
+
+          <a id="cta-telegram-principal"
+             href="https://t.me/makeflawbot"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn-cta">
+            <svg class="tg-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-2.008 9.463c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.24-.213-.054-.333-.373-.12L7.166 13.99l-2.966-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.988.569z"/>
+            </svg>
+            Garantir minha vaga agora →
+          </a>
+
+          <div class="trust-badges">
+            <span>✓ 100% gratuito</span>
+            <span>✓ Acesso imediato</span>
+            <span>✓ Sem spam</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Testimonials -->
+    <section class="testimonials-section" aria-label="Depoimentos de membras">
+      <div class="section-header">
+        <p class="eyebrow">Resultado real</p>
+        <h2>O que elas estão dizendo</h2>
+      </div>
+      <div class="testimonials-list">
+
+        <div class="testimonial scroll-reveal">
+          <div class="avatar">C</div>
+          <div class="testimonial-body">
+            <div class="testimonial-meta">
+              <div><p class="t-name">Camila R.</p><p class="t-city">São Paulo</p></div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="t-saving">R$180 em 3 dias</span>
+                <div class="stars">
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                </div>
+              </div>
+            </div>
+            <p class="t-text">"Em 3 dias já tinha economizado R$180 em produtos que eu precisava comprar de qualquer jeito."</p>
+          </div>
+        </div>
+
+        <div class="testimonial scroll-reveal" style="animation-delay:0.1s">
+          <div class="avatar">F</div>
+          <div class="testimonial-body">
+            <div class="testimonial-meta">
+              <div><p class="t-name">Fernanda M.</p><p class="t-city">Belo Horizonte</p></div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="t-saving">65% off</span>
+                <div class="stars">
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                </div>
+              </div>
+            </div>
+            <p class="t-text">"Comprei minha base favorita com 65% de desconto. O bot alertou antes de qualquer site."</p>
+          </div>
+        </div>
+
+        <div class="testimonial scroll-reveal" style="animation-delay:0.2s">
+          <div class="avatar">L</div>
+          <div class="testimonial-body">
+            <div class="testimonial-meta">
+              <div><p class="t-name">Larissa T.</p><p class="t-city">Porto Alegre</p></div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="t-saving">Suporte real</span>
+                <div class="stars">
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                  <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7L7 1z" fill="#cc0000"/></svg>
+                </div>
+              </div>
+            </div>
+            <p class="t-text">"Perguntei sobre meu protocolo e recebi resposta personalizada em menos de 1 hora."</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. Inaction Cost -->
+    <section class="inaction-section" aria-label="O custo de não entrar agora">
+      <div class="inaction-card">
+        <div class="inaction-top-line"></div>
+        <p class="inaction-eyebrow">Agora mesmo, enquanto você lê isso</p>
+        <div class="inaction-items">
+          <div class="inaction-item scroll-reveal">
+            <span class="inaction-emoji">💸</span>
+            <p class="inaction-text">Outras membras economizaram em média R$240 só esse mês.</p>
+          </div>
+          <div class="inaction-item scroll-reveal" style="animation-delay:0.1s">
+            <span class="inaction-emoji">🔔</span>
+            <p class="inaction-text">O bot já alertou 3 promoções acima de 60% hoje — você não viu nenhuma.</p>
+          </div>
+          <div class="inaction-item scroll-reveal" style="animation-delay:0.2s">
+            <span class="inaction-emoji">🔒</span>
+            <p class="inaction-text">Seu acesso como membra está ativo agora. Ele não espera para sempre.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live counter -->
+    <div class="live-counter scroll-reveal">
+      <div class="ping-dot" aria-hidden="true"></div>
+      <p class="live-text"><strong>+4.200 membras</strong> ativas no grupo agora</p>
+    </div>
+
+    <!-- 5. Final CTA -->
+    <section class="final-cta" aria-label="Entrar no Telegram">
+      <h2>Você chegou até aqui.<br><em>Não saia de mãos vazias.</em></h2>
+      <p>O grupo é <strong>gratuito para membras</strong>, o acesso é imediato — e cada minuto fora custa dinheiro real.</p>
+
+      <a id="cta-telegram-final"
+         href="https://t.me/makeflawbot"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn-cta">
+        <svg class="tg-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-2.008 9.463c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.24-.213-.054-.333-.373-.12L7.166 13.99l-2.966-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.988.569z"/>
+        </svg>
+        Entrar no grupo agora →
+      </a>
+
+      <div class="trust-badges">
+        <span>✓ 100% gratuito</span>
+        <span>✓ Acesso imediato</span>
+        <span>✓ Cancele quando quiser</span>
+      </div>
+
+      <a href="/" class="back-link">← Voltar ao início</a>
+    </section>
+
+  </div>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '-40px' });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // Logo fallback — tenta carregar o logomark do mesmo diretório
+    const logo = document.getElementById('logo-img');
+    logo.src = 'logomark.png';
+    logo.onerror = () => { logo.style.display = 'none'; };
+  </script>
+</body>
+</html>
