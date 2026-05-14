@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
           event_name: 'checkout',
           event_time: Math.floor(Date.now() / 1000),
           action_source: 'web',
-          event_source_url: 'https://makeflow.com.br/obrigado',
+          event_source_url: 'https://makeflow.site/obrigado',
           user_data: {
             em: [hashedEmail],
             // Add client IP and user agent if Pepper provides them
