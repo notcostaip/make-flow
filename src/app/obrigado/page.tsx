@@ -50,29 +50,29 @@ const TESTIMONIALS = [
   {
     name: 'Camila R.',
     city: 'São Paulo',
-    text: 'Em 3 dias já tinha economizado R$180 em produtos que eu precisava comprar de qualquer jeito.',
+    text: 'Na primeira semana já entendi o que estava errando na base. Agora minha make dura o dia todo sem retocar.',
     stars: 5,
-    saving: 'R$180 em 3 dias',
+    tag: 'Resultado em 7 dias',
   },
   {
     name: 'Fernanda M.',
     city: 'Belo Horizonte',
-    text: 'Comprei minha base favorita com 65% de desconto. O sistema alertou antes de qualquer site.',
+    text: 'Achava que precisava de 15 produtos. O protocolo me mostrou que 5 certos fazem mais do que 15 errados.',
     stars: 5,
-    saving: '65% off',
+    tag: 'Rotina simplificada',
   },
   {
     name: 'Larissa T.',
     city: 'Porto Alegre',
-    text: 'Perguntei sobre meu protocolo e recebi resposta personalizada em menos de 1 hora.',
+    text: 'Perguntei sobre meu tipo de pele e recebi resposta personalizada em menos de 1 hora. Suporte incrível.',
     stars: 5,
-    saving: 'Suporte real',
+    tag: 'Suporte real',
   },
 ];
 
 const INACTION_ITEMS = [
-  { emoji: '💸', text: 'Outras membras economizaram em média R$240 só esse mês.' },
-  { emoji: '🔔', text: 'O sistema já encontrou 3 promoções acima de 60% hoje — você não viu nenhuma.' },
+  { emoji: '⏳', text: 'Cada dia sem o protocolo certo é mais um dia comprando produtos errados para seu tipo de pele.' },
+  { emoji: '✨', text: 'Membras que começaram hoje já estão aplicando a técnica de Base Sem Máscara agora.' },
   { emoji: '🔒', text: 'Seu acesso como membra está ativo agora. Ele não espera para sempre.' },
 ];
 
@@ -280,7 +280,7 @@ export default function ObrigadoPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-[#cc0000] text-[10px] font-bold font-sans bg-[#990000]/10 px-2 py-0.5 rounded-full border border-[#990000]/20">
-                        {t.saving}
+                        {t.tag}
                       </span>
                       <StarRating count={t.stars} />
                     </div>
@@ -368,7 +368,7 @@ export default function ObrigadoPage() {
             <span className="italic font-light text-white/65">Não saia de mãos vazias.</span>
           </h2>
           <p className="text-white/35 font-sans text-sm leading-relaxed max-w-sm mx-auto">
-            A plataforma é <strong className="text-white/60">gratuita para membras</strong>, o acesso é imediato — e cada minuto fora custa dinheiro real.
+            Seu protocolo personalizado está pronto. O acesso é <strong className="text-white/60">imediato e vitalício</strong> — comece a aplicar hoje.
           </p>
 
           <motion.a
