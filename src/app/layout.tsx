@@ -52,7 +52,7 @@ export default function RootLayout({
             var t=document.createElement("script");t.async=!0,t.src=e;
             var r=document.getElementsByTagName("script")[0];
             r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
-            pintrk('load', 'YOUR_TAG_ID');
+            pintrk('load', '2612716518352');
             pintrk('page');
             pintrk('track', 'pagevisit', {
               event_id: 'eventId0001'
@@ -61,7 +61,7 @@ export default function RootLayout({
         </Script>
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img height="1" width="1" style={{display:'none'}} alt="" src="https://ct.pinterest.com/v3/?tid=YOUR_TAG_ID&noscript=1" />
+          <img height="1" width="1" style={{display:'none'}} alt="" src="https://ct.pinterest.com/v3/?tid=2612716518352&noscript=1" />
         </noscript>
         {children}
       </body>
