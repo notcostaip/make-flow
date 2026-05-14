@@ -79,6 +79,18 @@ const INACTION_ITEMS = [
 /* ── Page ──────────────────────────────────────────────────────── */
 
 export default function ObrigadoPage() {
+  // Pinterest Ads — Checkout conversion event
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).pintrk) {
+      (window as any).pintrk('track', 'checkout', {
+        event_id: 'eventId0001',
+        value: 100,
+        order_quantity: 1,
+        currency: 'USD'
+      });
+    }
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#050505] text-white overflow-hidden relative">
 

@@ -54,6 +54,9 @@ export default function RootLayout({
             r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
             pintrk('load', 'YOUR_TAG_ID');
             pintrk('page');
+            pintrk('track', 'pagevisit', {
+              event_id: 'eventId0001'
+            });
           `}
         </Script>
         <noscript>

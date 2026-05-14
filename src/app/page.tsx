@@ -46,6 +46,17 @@ export default function Home() {
   const handleQuizComplete = (answers: Record<number, string>) => {
     setQuizAnswers(answers);
     setIsQuizComplete(true);
+
+    // Pinterest Ads — Add to Cart event (quiz completed, offer revealed)
+    if (typeof window !== 'undefined' && (window as any).pintrk) {
+      (window as any).pintrk('track', 'addtocart', {
+        event_id: 'eventId0001',
+        value: 100,
+        order_quantity: 1,
+        currency: 'USD'
+      });
+    }
+
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 500);
   };
 
