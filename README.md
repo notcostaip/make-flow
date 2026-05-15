@@ -108,6 +108,6 @@ Este projeto é otimizado para implantação rápida na **Vercel** ou **Netlify*
 
 <br/>
 
-**Feito por [Costa](https://github.com/notcostaip) com ☕ e muita diversão.**
+**Created by [Costa](https://github.com/notcostaip)**
 
 </div>
